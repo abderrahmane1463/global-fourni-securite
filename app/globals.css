@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blood: #e10600;
+  --blood-glow: rgba(225, 6, 0, 0.45);
+}
+
+@layer base {
+  * {
+    @apply border-white/5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-noir font-body text-white/80 antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-heading text-white;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--blood);
+    color: #fff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#5a0200, #e10600);
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Frosted glass panel — used deliberately, not everywhere */
+  .glass {
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-xl;
+  }
+
+  /* Animated conic border on hover */
+  .border-glow {
+    position: relative;
+    isolation: isolate;
+  }
+  .border-glow::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      transparent 55%,
+      rgba(225, 6, 0, 0.9) 75%,
+      #ff5a4d 85%,
+      transparent 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+  }
+  .border-glow:hover::before {
+    opacity: 1;
+    animation: spin-angle 3s linear infinite;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 24px rgba(225, 6, 0, 0.55);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-heading text-xs font-semibold uppercase tracking-[0.3em] text-blood;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Radial ambient glow helper */
+.ambient-red {
+  background: radial-gradient(
+    60% 60% at 50% 40%,
+    rgba(225, 6, 0, 0.18) 0%,
+    rgba(225, 6, 0, 0.05) 40%,
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
