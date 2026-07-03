@@ -3,10 +3,12 @@
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ShieldCheck, MessageCircle, ArrowRight, Wifi, Video, Lock } from "lucide-react";
 import { COMPANY } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 import { Particles } from "./Particles";
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const { t } = useI18n();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const rx = useSpring(useTransform(my, [-0.5, 0.5], [8, -8]), { stiffness: 120, damping: 20 });
@@ -45,7 +47,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blood opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-blood" />
             </span>
-            Systèmes actifs 24/7 · Depuis {COMPANY.founded}
+            {t.hero.badgePrefix} {t.founded}
           </motion.div>
 
           <motion.h1
@@ -54,9 +56,9 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
           >
-            Solutions intelligentes de{" "}
+            {t.hero.titleA}{" "}
             <span className="relative text-blood text-glow">
-              vidéosurveillance
+              {t.hero.titleHighlight}
               <svg
                 className="absolute -bottom-2 left-0 w-full"
                 height="10"
@@ -68,7 +70,7 @@ export function Hero() {
                 <path d="M2 7 Q150 -2 298 7" stroke="#E10600" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
             </span>{" "}
-            & sécurité
+            {t.hero.titleB}
           </motion.h1>
 
           <motion.p
@@ -77,8 +79,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="max-w-xl text-base leading-relaxed text-ash sm:text-lg"
           >
-            Installation, maintenance et surveillance professionnelle pour particuliers et
-            entreprises.
+            {t.hero.subtitle}
           </motion.p>
 
           <motion.p
@@ -87,7 +88,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.22 }}
             className="font-heading text-lg font-semibold italic text-white"
           >
-            « Votre sécurité est notre responsabilité. »
+            {t.hero.slogan}
           </motion.p>
 
           <motion.div
@@ -100,7 +101,7 @@ export function Hero() {
               href="#contact"
               className="group inline-flex items-center gap-2 rounded-full bg-blood px-7 py-3.5 font-heading text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-blood-bright hover:shadow-glow-lg"
             >
-              Demander un devis
+              {t.cta.quote}
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             <a
@@ -110,7 +111,7 @@ export function Hero() {
               className="group inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-7 py-3.5 font-heading text-sm font-semibold text-emerald-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-400/60 hover:bg-emerald-500/20"
             >
               <MessageCircle className="h-4 w-4" />
-              Contact WhatsApp
+              {t.cta.whatsapp}
             </a>
           </motion.div>
 
@@ -120,13 +121,9 @@ export function Hero() {
             transition={{ duration: 1, delay: 0.5 }}
             className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/60"
           >
-            {[
-              { icon: Video, label: "Caméras HD & 4K" },
-              { icon: Wifi, label: "Accès mobile" },
-              { icon: Lock, label: "Anti-intrusion" },
-            ].map(({ icon: Icon, label }) => (
-              <span key={label} className="flex items-center gap-2">
-                <Icon className="h-4 w-4 text-blood" /> {label}
+            {[Video, Wifi, Lock].map((Icon, i) => (
+              <span key={i} className="flex items-center gap-2">
+                <Icon className="h-4 w-4 text-blood" /> {t.hero.chips[i]}
               </span>
             ))}
           </motion.div>
@@ -166,9 +163,9 @@ export function Hero() {
           </motion.div>
 
           {/* floating info chips */}
-          <FloatingChip className="left-0 top-10" delay={0.6} label="REC" sub="Live" dot />
-          <FloatingChip className="right-0 top-28" delay={0.9} label="4K UHD" sub="Netteté" />
-          <FloatingChip className="bottom-10 left-6" delay={1.2} label="Mobile" sub="Temps réel" icon={<ShieldCheck className="h-3.5 w-3.5 text-blood" />} />
+          <FloatingChip className="left-0 top-10" delay={0.6} label="REC" sub={t.hero.cam.recSub} dot />
+          <FloatingChip className="right-0 top-28" delay={0.9} label="4K UHD" sub={t.hero.cam.uhdSub} />
+          <FloatingChip className="bottom-10 left-6" delay={1.2} label={t.hero.cam.mobile} sub={t.hero.cam.mobileSub} icon={<ShieldCheck className="h-3.5 w-3.5 text-blood" />} />
         </motion.div>
       </div>
 

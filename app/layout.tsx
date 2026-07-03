@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Poppins } from "next/font/google";
+import { Montserrat, Poppins, Cairo } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,6 +14,13 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-poppins",
+  display: "swap",
+});
+
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-cairo",
   display: "swap",
 });
 
@@ -96,13 +104,17 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${montserrat.variable} ${poppins.variable}`}>
+    <html
+      lang="fr"
+      dir="ltr"
+      className={`${montserrat.variable} ${poppins.variable} ${cairo.variable}`}
+    >
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

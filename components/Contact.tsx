@@ -16,6 +16,7 @@ import {
   Navigation,
 } from "lucide-react";
 import { COMPANY } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 import { Reveal } from "./Reveal";
 
 const TikTokIcon = ({ className = "" }: { className?: string }) => (
@@ -25,6 +26,8 @@ const TikTokIcon = ({ className = "" }: { className?: string }) => (
 );
 
 export function Contact() {
+  const { t } = useI18n();
+  const c = t.contact;
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [form, setForm] = useState({ name: "", phone: "", service: "", message: "" });
 
@@ -36,7 +39,7 @@ export function Contact() {
     e.preventDefault();
     setStatus("sending");
     const text = encodeURIComponent(
-      `Bonjour Global Fourni Sécurité,\n\nJe m'appelle ${form.name}.\nTéléphone : ${form.phone}\nService souhaité : ${form.service || "—"}\n\n${form.message}`,
+      `${c.wa.greeting}\n\n${c.wa.name} ${form.name}.\n${c.wa.phone} : ${form.phone}\n${c.wa.service} : ${form.service || "—"}\n\n${form.message}`,
     );
     setTimeout(() => {
       setStatus("sent");
@@ -56,14 +59,11 @@ export function Contact() {
       <div className="ambient-red pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[600px] opacity-60" />
       <div className="container-x">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">Contact</span>
+          <span className="eyebrow">{c.kicker}</span>
           <h2 className="mt-4 font-heading text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl">
-            Contactez-nous dès aujourd'hui pour{" "}
-            <span className="text-blood">sécuriser votre espace</span>
+            {c.title} <span className="text-blood">{c.highlight}</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-[58ch] text-ash">
-            Devis gratuit et sans engagement. Décrivez votre besoin, nous vous rappelons rapidement.
-          </p>
+          <p className="mx-auto mt-4 max-w-[58ch] text-ash">{c.subtitle}</p>
         </Reveal>
 
         <div className="mt-16 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
@@ -71,9 +71,9 @@ export function Contact() {
           <Reveal className="flex flex-col gap-5">
             <div className="flex flex-col gap-4">
               {[
-                { icon: Phone, label: "Téléphone", value: COMPANY.phoneDisplay, href: `tel:${COMPANY.phoneRaw}` },
-                { icon: MapPin, label: "Adresse", value: COMPANY.location, href: COMPANY.mapUrl, external: true },
-                { icon: Clock, label: "Disponibilité", value: "Support rapide · Surveillance 24/7" },
+                { icon: Phone, label: c.info.phone, value: COMPANY.phoneDisplay, href: `tel:${COMPANY.phoneRaw}` },
+                { icon: MapPin, label: c.info.address, value: COMPANY.location, href: COMPANY.mapUrl, external: true },
+                { icon: Clock, label: c.info.availability, value: c.info.availabilityValue },
               ].map((item) => {
                 const Icon = item.icon;
                 const content = (
@@ -139,11 +139,11 @@ export function Contact() {
                   <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-blood/40" />
                   <MapPin className="relative h-8 w-8 text-blood transition-transform duration-300 group-hover:scale-110" />
                 </span>
-                <div className="font-heading font-semibold text-white">Ain Bessem — Bouira</div>
-                <div className="text-xs text-white/50">Algérie</div>
+                <div className="font-heading font-semibold text-white">{c.mapCity}</div>
+                <div className="text-xs text-white/50">{c.mapCountry}</div>
               </div>
               <span className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full border border-white/10 bg-noir/70 px-3 py-1.5 text-xs font-medium text-white/70 backdrop-blur transition-colors group-hover:text-blood">
-                <Navigation className="h-3.5 w-3.5" /> Itinéraire
+                <Navigation className="h-3.5 w-3.5" /> {c.itinerary}
               </span>
             </a>
           </Reveal>
@@ -153,13 +153,13 @@ export function Contact() {
             <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blood/20 blur-3xl" />
             <form onSubmit={handleSubmit} className="relative flex flex-col gap-5">
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Nom complet" name="name" value={form.name} onChange={handleChange} required placeholder="Votre nom" />
-                <Field label="Téléphone" name="phone" type="tel" value={form.phone} onChange={handleChange} required placeholder="05 55 60 84 23" />
+                <Field label={c.form.name} name="name" value={form.name} onChange={handleChange} required placeholder={c.form.namePh} />
+                <Field label={c.form.phone} name="phone" type="tel" value={form.phone} onChange={handleChange} required placeholder={c.form.phonePh} />
               </div>
 
               <div className="flex flex-col gap-2">
                 <label htmlFor="service" className="font-heading text-sm font-medium text-white">
-                  Service souhaité
+                  {c.form.service}
                 </label>
                 <select
                   id="service"
@@ -168,19 +168,16 @@ export function Contact() {
                   onChange={handleChange}
                   className="rounded-xl border border-white/10 bg-noir/60 px-4 py-3 text-white outline-none transition-colors focus:border-blood/60 focus:shadow-glow-sm"
                 >
-                  <option value="">Sélectionnez…</option>
-                  <option>Installation de caméras</option>
-                  <option>Maintenance & réparation</option>
-                  <option>Contrôle d'accès</option>
-                  <option>Alarme anti-intrusion</option>
-                  <option>Réseaux & fibre optique</option>
-                  <option>Autre</option>
+                  <option value="">{c.form.serviceDefault}</option>
+                  {c.form.serviceOptions.map((opt) => (
+                    <option key={opt}>{opt}</option>
+                  ))}
                 </select>
               </div>
 
               <div className="flex flex-col gap-2">
                 <label htmlFor="message" className="font-heading text-sm font-medium text-white">
-                  Votre message
+                  {c.form.message}
                 </label>
                 <textarea
                   id="message"
@@ -189,7 +186,7 @@ export function Contact() {
                   onChange={handleChange}
                   required
                   rows={4}
-                  placeholder="Décrivez votre besoin (type de local, nombre de caméras…)"
+                  placeholder={c.form.messagePh}
                   className="resize-none rounded-xl border border-white/10 bg-noir/60 px-4 py-3 text-white placeholder:text-white/30 outline-none transition-colors focus:border-blood/60 focus:shadow-glow-sm"
                 />
               </div>
@@ -202,18 +199,18 @@ export function Contact() {
                 <AnimatePresence mode="wait">
                   {status === "idle" && (
                     <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                      Envoyer via WhatsApp
+                      {c.form.send}
                       <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
                     </motion.span>
                   )}
                   {status === "sending" && (
                     <motion.span key="sending" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                      <Loader2 className="h-4 w-4 animate-spin" /> Préparation…
+                      <Loader2 className="h-4 w-4 animate-spin" /> {c.form.sending}
                     </motion.span>
                   )}
                   {status === "sent" && (
                     <motion.span key="sent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4" /> Message ouvert !
+                      <CheckCircle2 className="h-4 w-4" /> {c.form.sent}
                     </motion.span>
                   )}
                 </AnimatePresence>
@@ -225,7 +222,7 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 text-sm text-white/50 transition-colors hover:text-emerald-300"
               >
-                <MessageCircle className="h-4 w-4" /> Ou discutez directement sur WhatsApp
+                <MessageCircle className="h-4 w-4" /> {c.form.direct}
               </a>
             </form>
           </Reveal>

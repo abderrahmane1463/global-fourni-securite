@@ -4,20 +4,23 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Navigation } from "lucide-react";
 import { ZONES } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 import { SectionHeading } from "./ui";
 import { Reveal } from "./Reveal";
 
 export function Zones() {
   const [hovered, setHovered] = useState<string | null>(null);
+  const { t } = useI18n();
+  const zoneName = (n: string) => t.zones.names[n] ?? n;
 
   return (
     <section id="zones" className="relative py-24 sm:py-32">
       <div className="container-x">
         <SectionHeading
-          kicker="Zones d'intervention"
-          title="Nous couvrons le"
-          highlight="centre de l'Algérie"
-          subtitle="Basés à Ain Bessem (Bouira), nous intervenons dans plusieurs wilayas voisines pour vos installations et votre maintenance."
+          kicker={t.zones.kicker}
+          title={t.zones.title}
+          highlight={t.zones.highlight}
+          subtitle={t.zones.subtitle}
         />
 
         <div className="mt-16 grid gap-8 lg:grid-cols-[1.3fr_0.7fr]">
@@ -76,15 +79,15 @@ export function Zones() {
                       : "opacity-0 group-hover:opacity-100"
                   } ${zone.primary ? "text-blood" : "text-white"}`}
                 >
-                  {zone.name}
-                  {zone.primary && " · Siège"}
+                  {zoneName(zone.name)}
+                  {zone.primary && ` · ${t.zones.hq}`}
                 </span>
               </button>
             ))}
 
             <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs text-white/70">
               <Navigation className="h-3.5 w-3.5 text-blood" />
-              Réseau d'intervention
+              {t.zones.network}
             </div>
           </Reveal>
 
@@ -105,14 +108,14 @@ export function Zones() {
                     <MapPin
                       className={`h-5 w-5 ${zone.primary ? "text-blood" : "text-white/50"}`}
                     />
-                    <span className="font-heading font-semibold text-white">{zone.name}</span>
+                    <span className="font-heading font-semibold text-white">{zoneName(zone.name)}</span>
                   </div>
                   {zone.primary ? (
                     <span className="rounded-full bg-blood/15 px-2.5 py-0.5 text-xs font-semibold text-blood">
-                      Siège
+                      {t.zones.hq}
                     </span>
                   ) : (
-                    <span className="text-xs text-white/40">Intervention</span>
+                    <span className="text-xs text-white/40">{t.zones.intervention}</span>
                   )}
                 </div>
               </Reveal>

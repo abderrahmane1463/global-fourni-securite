@@ -5,23 +5,30 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { X, Play, Camera, Maximize2 } from "lucide-react";
 import { GALLERY, type GalleryItem } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 import { SectionHeading } from "./ui";
 
 export function Gallery() {
+  const { t } = useI18n();
   const [active, setActive] = useState<GalleryItem | null>(null);
+  const items: GalleryItem[] = GALLERY.map((g, i) => ({
+    ...g,
+    label: t.gallery.items[i].label,
+    caption: t.gallery.items[i].caption,
+  }));
 
   return (
     <section id="realisations" className="relative py-24 sm:py-32">
       <div className="container-x">
         <SectionHeading
-          kicker="Réalisations"
-          title="Nos installations en"
-          highlight="images"
-          subtitle="Un aperçu de notre magasin, de nos poses sur site et de nos interventions techniques."
+          kicker={t.gallery.kicker}
+          title={t.gallery.title}
+          highlight={t.gallery.highlight}
+          subtitle={t.gallery.subtitle}
         />
 
         <div className="mt-16 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {GALLERY.map((item, i) => (
+          {items.map((item, i) => (
             <motion.button
               key={item.label}
               onClick={() => setActive(item)}

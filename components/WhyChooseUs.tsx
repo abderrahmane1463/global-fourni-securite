@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { WHY_US } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 import { SectionHeading } from "./ui";
 import { staggerContainer, staggerItem } from "./Reveal";
 
 export function WhyChooseUs() {
+  const { t } = useI18n();
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-noir via-graphite/40 to-noir" />
@@ -13,10 +15,10 @@ export function WhyChooseUs() {
 
       <div className="container-x">
         <SectionHeading
-          kicker="Pourquoi nous"
-          title="Ce qui fait la différence"
-          highlight="Global Fourni"
-          subtitle="Bien plus qu'un installateur : un partenaire de confiance qui reste à vos côtés."
+          kicker={t.why.kicker}
+          title={t.why.title}
+          highlight={t.why.highlight}
+          subtitle={t.why.subtitle}
         />
 
         <motion.div
@@ -26,11 +28,11 @@ export function WhyChooseUs() {
           viewport={{ once: true, margin: "-60px" }}
           className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {WHY_US.map((feature) => {
-            const Icon = feature.icon;
+          {t.why.items.map((feature, i) => {
+            const Icon = WHY_US[i].icon;
             return (
               <motion.div
-                key={feature.title}
+                key={i}
                 variants={staggerItem}
                 whileHover={{ y: -6 }}
                 className="group relative overflow-hidden rounded-2xl glass p-7 transition-colors duration-300 hover:border-blood/40"

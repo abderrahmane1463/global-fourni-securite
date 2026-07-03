@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
 import { COMPANY } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 
 export function WhatsAppFloat() {
+  const { t } = useI18n();
   const [show, setShow] = useState(false);
   const [tip, setTip] = useState(false);
 
@@ -37,7 +39,7 @@ export function WhatsAppFloat() {
                 exit={{ opacity: 0, x: 10 }}
                 className="relative hidden rounded-2xl border border-white/10 bg-noir/90 px-4 py-2.5 text-sm text-white shadow-lg backdrop-blur sm:block"
               >
-                Besoin d'un devis ? Écrivez-nous 👋
+                {t.waTip} 👋
                 <button
                   onClick={() => setTip(false)}
                   aria-label="Fermer"

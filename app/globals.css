@@ -121,6 +121,33 @@
   );
 }
 
+/* ---------- Arabic / RTL ---------- */
+html[dir="rtl"] body,
+html[dir="rtl"] .font-body {
+  font-family: var(--font-cairo), sans-serif;
+}
+
+html[dir="rtl"] .font-heading,
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5 {
+  font-family: var(--font-cairo), sans-serif;
+  letter-spacing: normal; /* tight tracking + Arabic script don't mix */
+}
+
+/* Latin uppercase tracking is wrong for Arabic labels */
+html[dir="rtl"] .eyebrow {
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+/* Italic slogans read poorly in Arabic script */
+html[dir="rtl"] .italic {
+  font-style: normal;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -33,3 +33,6 @@ yarn-error.log*
 
 # raw source photos (used copies live in /public)
 WhatsApp Image*.jpeg
+
+.vercel
+.env*

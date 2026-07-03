@@ -2,7 +2,8 @@
 
 import { Phone, MapPin, Instagram, Facebook, ArrowUpRight } from "lucide-react";
 import { Logo } from "./Logo";
-import { COMPANY, NAV_LINKS, SERVICES } from "@/lib/site";
+import { COMPANY, NAV_LINKS } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 
 const TikTokIcon = ({ className = "" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
@@ -11,6 +12,7 @@ const TikTokIcon = ({ className = "" }: { className?: string }) => (
 );
 
 export function Footer() {
+  const { t } = useI18n();
   const year = new Date().getFullYear();
   const socials = [
     { icon: Instagram, href: COMPANY.social.instagram, label: "Instagram" },
@@ -29,12 +31,9 @@ export function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-5">
             <Logo />
-            <p className="max-w-xs text-sm leading-relaxed text-ash">
-              Installation, maintenance et surveillance professionnelle de systèmes de sécurité pour
-              particuliers et entreprises.
-            </p>
+            <p className="max-w-xs text-sm leading-relaxed text-ash">{t.footer.tagline}</p>
             <p className="font-heading text-sm font-semibold italic text-white">
-              « {COMPANY.sloganFr} »
+              {t.about.slogan}
             </p>
             <div className="flex gap-3">
               {socials.map((s) => {
@@ -56,30 +55,30 @@ export function Footer() {
           </div>
 
           {/* Nav */}
-          <FooterCol title="Navigation">
-            {NAV_LINKS.map((l) => (
+          <FooterCol title={t.footer.nav}>
+            {NAV_LINKS.map((l, i) => (
               <FooterLink key={l.href} href={l.href}>
-                {l.label}
+                {t.nav[i]}
               </FooterLink>
             ))}
           </FooterCol>
 
           {/* Services */}
-          <FooterCol title="Services">
-            {SERVICES.slice(0, 6).map((s) => (
-              <FooterLink key={s.title} href="#services">
+          <FooterCol title={t.footer.services}>
+            {t.services.items.slice(0, 6).map((s, i) => (
+              <FooterLink key={i} href="#services">
                 {s.title.split("&")[0].split("(")[0].trim()}
               </FooterLink>
             ))}
           </FooterCol>
 
           {/* Contact */}
-          <FooterCol title="Contact">
+          <FooterCol title={t.footer.contact}>
             <a
               href={`tel:${COMPANY.phoneRaw}`}
               className="flex items-center gap-2 text-sm text-ash transition-colors hover:text-white"
             >
-              <Phone className="h-4 w-4 text-blood" /> {COMPANY.phoneDisplay}
+              <Phone className="h-4 w-4 text-blood" /> <span dir="ltr">{COMPANY.phoneDisplay}</span>
             </a>
             <a
               href={COMPANY.mapUrl}
@@ -89,19 +88,19 @@ export function Footer() {
             >
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-blood" /> {COMPANY.location}
             </a>
-            <div className="mt-2 text-xs text-white/40">Créée en {COMPANY.founded}</div>
+            <div className="mt-2 text-xs text-white/40">{t.footer.foundedPrefix} {t.founded}</div>
             <a
               href="#contact"
               className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-blood px-4 py-2 font-heading text-sm font-semibold text-white shadow-glow-sm transition-transform hover:-translate-y-0.5"
             >
-              Demander un devis <ArrowUpRight className="h-4 w-4" />
+              {t.footer.quote} <ArrowUpRight className="h-4 w-4" />
             </a>
           </FooterCol>
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/40 sm:flex-row">
           <p>
-            © {year} {COMPANY.legal}. Tous droits réservés.
+            © {year} {COMPANY.legal}. {t.footer.rights}
           </p>
           <p className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-blood" />

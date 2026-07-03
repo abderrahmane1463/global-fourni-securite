@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Instagram, Facebook, ArrowUpRight, Play, Camera } from "lucide-react";
 import { COMPANY } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 import { SectionHeading } from "./ui";
 import { staggerContainer, staggerItem } from "./Reveal";
 
@@ -19,7 +20,6 @@ const PLATFORMS = [
     handle: COMPANY.social.instagramHandle,
     href: COMPANY.social.instagram,
     icon: Instagram,
-    blurb: "Photos de nos installations et stories du quotidien.",
     accent: "from-[#833ab4] via-[#e1306c] to-[#f77737]",
   },
   {
@@ -28,7 +28,6 @@ const PLATFORMS = [
     handle: COMPANY.social.tiktokHandle,
     href: COMPANY.social.tiktok,
     icon: TikTokIcon,
-    blurb: "Nos reels et vidéos de chantiers en action.",
     accent: "from-[#25F4EE] via-[#111] to-[#FE2C55]",
   },
   {
@@ -37,21 +36,21 @@ const PLATFORMS = [
     handle: COMPANY.social.facebookHandle,
     href: COMPANY.social.facebook,
     icon: Facebook,
-    blurb: "Actualités, avis clients et informations pratiques.",
     accent: "from-[#1877F2] via-[#0b5fd0] to-[#0a4bb0]",
   },
 ];
 
 export function Community() {
+  const { t } = useI18n();
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
       <div className="ambient-red pointer-events-none absolute inset-x-0 top-0 -z-10 h-[500px] opacity-60" />
       <div className="container-x">
         <SectionHeading
-          kicker="Communauté"
-          title="Suivez nos réalisations en"
-          highlight="direct"
-          subtitle="Chantiers, installations et nouveautés : retrouvez notre travail au quotidien sur nos réseaux sociaux."
+          kicker={t.community.kicker}
+          title={t.community.title}
+          highlight={t.community.highlight}
+          subtitle={t.community.subtitle}
         />
 
         <motion.div
@@ -86,11 +85,11 @@ export function Community() {
                 </div>
 
                 <h3 className="font-heading text-xl font-bold text-white">{p.name}</h3>
-                <p className="mt-1 font-heading text-sm font-medium text-blood">@{p.handle}</p>
-                <p className="mt-3 text-sm leading-relaxed text-ash">{p.blurb}</p>
+                <p className="mt-1 font-heading text-sm font-medium text-blood" dir="ltr">@{p.handle}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ash">{t.community.blurbs[p.id]}</p>
 
                 <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 px-4 py-2 font-heading text-sm font-semibold text-white transition-colors duration-300 group-hover:border-blood/50 group-hover:text-blood">
-                  Suivre
+                  {t.community.follow}
                 </span>
               </motion.a>
             );
@@ -106,13 +105,13 @@ export function Community() {
           className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 rounded-2xl glass px-6 py-4 text-sm text-white/70"
         >
           <span className="flex items-center gap-2">
-            <Camera className="h-4 w-4 text-blood" /> Photos de chantiers
+            <Camera className="h-4 w-4 text-blood" /> {t.community.strip[0]}
           </span>
           <span className="flex items-center gap-2">
-            <Play className="h-4 w-4 text-blood" /> Reels & vidéos
+            <Play className="h-4 w-4 text-blood" /> {t.community.strip[1]}
           </span>
           <span className="flex items-center gap-2">
-            <Instagram className="h-4 w-4 text-blood" /> Nouveautés & promos
+            <Instagram className="h-4 w-4 text-blood" /> {t.community.strip[2]}
           </span>
         </motion.div>
       </div>

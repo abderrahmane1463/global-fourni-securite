@@ -1,16 +1,18 @@
 "use client";
 
 import { BRANDS } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
 import { Reveal } from "./Reveal";
 
 export function Brands() {
+  const { t } = useI18n();
   const loop = [...BRANDS, ...BRANDS];
   return (
     <section className="relative border-y border-white/5 py-16">
       <div className="container-x">
         <Reveal className="mb-10 text-center">
           <p className="font-heading text-sm font-semibold uppercase tracking-[0.28em] text-white/50">
-            Marques & partenaires de confiance
+            {t.brands.title}
           </p>
         </Reveal>
       </div>

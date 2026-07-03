@@ -2,14 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Languages } from "lucide-react";
 import { Logo } from "./Logo";
 import { NAV_LINKS, COMPANY } from "@/lib/site";
+import { useI18n } from "@/lib/i18n";
+
+function LangToggle({ className = "" }: { className?: string }) {
+  const { toggle, t } = useI18n();
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Changer de langue / تغيير اللغة"
+      className={`flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 font-heading text-sm font-semibold text-white/80 transition-all hover:border-blood/50 hover:text-white ${className}`}
+    >
+      <Languages className="h-4 w-4 text-blood" />
+      {t.langToggle}
+    </button>
+  );
+}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
+  const { t } = useI18n();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -38,13 +54,13 @@ export function Navbar() {
           <Logo />
 
           <ul className="hidden items-center gap-8 lg:flex">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map((link, i) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   className="group relative py-2 font-heading text-sm font-medium text-white/80 transition-colors hover:text-white"
                 >
-                  {link.label}
+                  {t.nav[i]}
                   <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 rounded-full bg-blood shadow-glow-sm transition-all duration-300 group-hover:w-full" />
                 </a>
               </li>
@@ -52,28 +68,32 @@ export function Navbar() {
           </ul>
 
           <div className="hidden items-center gap-3 lg:flex">
+            <LangToggle />
             <a
               href={`tel:${COMPANY.phoneRaw}`}
               className="flex items-center gap-2 font-heading text-sm font-medium text-white/70 transition-colors hover:text-white"
             >
               <Phone className="h-4 w-4 text-blood" />
-              {COMPANY.phoneDisplay}
+              <span dir="ltr">{COMPANY.phoneDisplay}</span>
             </a>
             <a
               href="#contact"
               className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-blood px-5 py-2.5 font-heading text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg"
             >
-              <span className="relative z-10">Demander un devis</span>
+              <span className="relative z-10">{t.cta.quote}</span>
             </a>
           </div>
 
-          <button
-            onClick={() => setOpen(true)}
-            aria-label="Ouvrir le menu"
-            className="glass flex h-11 w-11 items-center justify-center rounded-full text-white lg:hidden"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <LangToggle />
+            <button
+              onClick={() => setOpen(true)}
+              aria-label="Ouvrir le menu"
+              className="glass flex h-11 w-11 items-center justify-center rounded-full text-white"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -114,7 +134,7 @@ export function Navbar() {
                     0{i + 1}
                   </span>
                   <span className="transition-transform duration-300 group-hover:translate-x-2">
-                    {link.label}
+                    {t.nav[i]}
                   </span>
                 </motion.a>
               ))}
@@ -130,7 +150,7 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className="flex items-center justify-center rounded-full bg-blood px-6 py-4 font-heading font-semibold text-white shadow-glow"
                 >
-                  Demander un devis
+                  {t.cta.quote}
                 </a>
                 <a
                   href={`tel:${COMPANY.phoneRaw}`}
