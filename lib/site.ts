@@ -7,6 +7,10 @@ import {
   Fingerprint,
   Network,
   ShieldAlert,
+  RadioTower,
+  Wifi,
+  Cable,
+  Binary,
   Zap,
   BadgeCheck,
   Cpu,
@@ -58,6 +62,30 @@ export const SERVICES: Service[] = [
     title: "Installation de caméras HD & 4K",
     description:
       "Vidéosurveillance haute définition posée par des techniciens certifiés, pour une image nette de jour comme de nuit.",
+  },
+  {
+    icon: RadioTower,
+    title: "Caméra 4G",
+    description:
+      "Caméras autonomes 4G/SIM pour les sites isolés ou sans connexion internet fixe.",
+  },
+  {
+    icon: Wifi,
+    title: "Caméra WiFi",
+    description:
+      "Caméras sans fil faciles à installer, connectées directement à votre réseau WiFi.",
+  },
+  {
+    icon: Cable,
+    title: "Caméra analogique",
+    description:
+      "Solutions analogiques fiables et économiques, idéales pour équiper ou moderniser vos locaux.",
+  },
+  {
+    icon: Binary,
+    title: "Caméra numérique",
+    description:
+      "Caméras IP numériques haute résolution, pour une image nette et un accès réseau avancé.",
   },
   {
     icon: Wrench,

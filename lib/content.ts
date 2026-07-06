@@ -32,6 +32,26 @@ const fr = {
           "Vidéosurveillance haute définition posée par des techniciens certifiés, pour une image nette de jour comme de nuit.",
       },
       {
+        title: "Caméra 4G",
+        description:
+          "Caméras autonomes 4G/SIM pour les sites isolés ou sans connexion internet fixe.",
+      },
+      {
+        title: "Caméra WiFi",
+        description:
+          "Caméras sans fil faciles à installer, connectées directement à votre réseau WiFi.",
+      },
+      {
+        title: "Caméra analogique",
+        description:
+          "Solutions analogiques fiables et économiques, idéales pour équiper ou moderniser vos locaux.",
+      },
+      {
+        title: "Caméra numérique",
+        description:
+          "Caméras IP numériques haute résolution, pour une image nette et un accès réseau avancé.",
+      },
+      {
         title: "Maintenance & réparation",
         description:
           "Diagnostic, entretien et remise en service rapide de vos systèmes existants, toutes marques confondues.",
@@ -238,6 +258,10 @@ const ar: Content = {
     subtitle: "من الدراسة إلى الصيانة، نغطّي كل حلقة في منظومة أمنكم بمعدات احترافية.",
     items: [
       { title: "تركيب كاميرات HD و 4K", description: "مراقبة فيديو عالية الدقة يركّبها فنيون معتمدون، لصورة واضحة نهاراً وليلاً." },
+      { title: "كاميرا 4G", description: "كاميرات مستقلة تعمل بشريحة 4G للمواقع المعزولة أو دون اتصال إنترنت ثابت." },
+      { title: "كاميرا WiFi", description: "كاميرات لاسلكية سهلة التركيب، متصلة مباشرة بشبكة WiFi الخاصة بكم." },
+      { title: "كاميرا تناظرية (Analogique)", description: "حلول تناظرية موثوقة واقتصادية، مثالية لتجهيز أو تحديث محلاتكم." },
+      { title: "كاميرا رقمية (IP)", description: "كاميرات IP رقمية عالية الدقة، لصورة واضحة ووصول شبكي متقدم." },
       { title: "الصيانة والإصلاح", description: "تشخيص وصيانة وإعادة تشغيل سريعة لأنظمتكم الحالية، ولكل الماركات." },
       { title: "المراقبة عن بُعد عبر الهاتف", description: "شاهد كاميراتك مباشرة من هاتفك، أينما كنت وفي أي وقت." },
       { title: "بيع أجهزة DVR / NVR / XVR", description: "مسجّلات احترافية من أحدث جيل، مناسبة لحجم تركيبتكم." },
