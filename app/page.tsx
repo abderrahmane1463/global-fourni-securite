@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Hero } from "@/components/Hero";
 import { Services } from "@/components/Services";
+import { BoutiqueTeaser } from "@/components/BoutiqueTeaser";
 import { About } from "@/components/About";
 import { Gallery } from "@/components/Gallery";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
@@ -21,6 +22,7 @@ export default function Home() {
         <Hero />
         <Brands />
         <Services />
+        <BoutiqueTeaser />
         <About />
         <Gallery />
         <WhyChooseUs />

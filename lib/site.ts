@@ -51,7 +51,7 @@ export const DELIVERY = {
 export const NAV_LINKS = [
   { label: "Accueil", href: "#accueil" },
   { label: "Services", href: "#services" },
-  { label: "Boutique", href: "/boutique" },
+  { label: "Boutique", href: "#boutique" },
   { label: "Réalisations", href: "#realisations" },
   { label: "Zones", href: "#zones" },
   { label: "Contact", href: "#contact" },

@@ -3,7 +3,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
-import { BoutiqueGrid } from "./BoutiqueGrid";
+import { ProductGrid } from "@/components/product/ProductGrid";
 
 export const metadata: Metadata = {
   title: "Boutique — Caméras & équipements de sécurité",
@@ -43,7 +43,7 @@ export default function BoutiquePage() {
 
         <section className="relative pb-24 sm:pb-32">
           <div className="container-x">
-            <BoutiqueGrid />
+            <ProductGrid />
           </div>
         </section>
       </main>
