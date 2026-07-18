@@ -42,9 +42,16 @@ export const COMPANY = {
   },
 };
 
+// Flat-rate shipping, same price for every wilaya.
+export const DELIVERY = {
+  bureau: { label: "Retrait au bureau", price: 450 },
+  domicile: { label: "Livraison à domicile", price: 650 },
+} as const;
+
 export const NAV_LINKS = [
   { label: "Accueil", href: "#accueil" },
   { label: "Services", href: "#services" },
+  { label: "Boutique", href: "/boutique" },
   { label: "Réalisations", href: "#realisations" },
   { label: "Zones", href: "#zones" },
   { label: "Contact", href: "#contact" },

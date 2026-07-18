@@ -4,7 +4,7 @@
 
 const fr = {
   langToggle: "العربية", // label shown on the button to switch TO the other language
-  nav: ["Accueil", "Services", "Réalisations", "Zones", "Contact"],
+  nav: ["Accueil", "Services", "Boutique", "Réalisations", "Zones", "Contact"],
   cta: { quote: "Demander un devis", whatsapp: "Contact WhatsApp" },
 
   hero: {
@@ -237,7 +237,7 @@ type Content = typeof fr;
 
 const ar: Content = {
   langToggle: "Français",
-  nav: ["الرئيسية", "الخدمات", "أعمالنا", "مناطق التغطية", "اتصل بنا"],
+  nav: ["الرئيسية", "الخدمات", "المتجر", "أعمالنا", "مناطق التغطية", "اتصل بنا"],
   cta: { quote: "اطلب عرض سعر", whatsapp: "تواصل عبر واتساب" },
 
   hero: {

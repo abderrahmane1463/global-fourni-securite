@@ -1,11 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X, Phone, Languages } from "lucide-react";
 import { Logo } from "./Logo";
 import { NAV_LINKS, COMPANY } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
+
+// Anchor links (#section) only work while already on the homepage;
+// from any other route they need the "/" prefix to navigate back first.
+function useResolvedHref() {
+  const pathname = usePathname();
+  return (href: string) => (href.startsWith("#") && pathname !== "/" ? `/${href}` : href);
+}
 
 function LangToggle({ className = "" }: { className?: string }) {
   const { toggle, t } = useI18n();
@@ -26,6 +34,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
   const { t } = useI18n();
+  const resolveHref = useResolvedHref();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -57,7 +66,7 @@ export function Navbar() {
             {NAV_LINKS.map((link, i) => (
               <li key={link.href}>
                 <a
-                  href={link.href}
+                  href={resolveHref(link.href)}
                   className="group relative py-2 font-heading text-sm font-medium text-white/80 transition-colors hover:text-white"
                 >
                   {t.nav[i]}
@@ -77,7 +86,7 @@ export function Navbar() {
               <span dir="ltr">{COMPANY.phoneDisplay}</span>
             </a>
             <a
-              href="#contact"
+              href={resolveHref("#contact")}
               className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-blood px-5 py-2.5 font-heading text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg"
             >
               <span className="relative z-10">{t.cta.quote}</span>
@@ -123,7 +132,7 @@ export function Navbar() {
               {NAV_LINKS.map((link, i) => (
                 <motion.a
                   key={link.href}
-                  href={link.href}
+                  href={resolveHref(link.href)}
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -146,7 +155,7 @@ export function Navbar() {
                 className="mt-8 flex flex-col gap-3"
               >
                 <a
-                  href="#contact"
+                  href={resolveHref("#contact")}
                   onClick={() => setOpen(false)}
                   className="flex items-center justify-center rounded-full bg-blood px-6 py-4 font-heading font-semibold text-white shadow-glow"
                 >

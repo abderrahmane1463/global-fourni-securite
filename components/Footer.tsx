@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { Phone, MapPin, Instagram, Facebook, ArrowUpRight } from "lucide-react";
 import { Logo } from "./Logo";
 import { COMPANY, NAV_LINKS } from "@/lib/site";
@@ -13,6 +14,8 @@ const TikTokIcon = ({ className = "" }: { className?: string }) => (
 
 export function Footer() {
   const { t } = useI18n();
+  const pathname = usePathname();
+  const resolveHref = (href: string) => (href.startsWith("#") && pathname !== "/" ? `/${href}` : href);
   const year = new Date().getFullYear();
   const socials = [
     { icon: Instagram, href: COMPANY.social.instagram, label: "Instagram" },
@@ -57,7 +60,7 @@ export function Footer() {
           {/* Nav */}
           <FooterCol title={t.footer.nav}>
             {NAV_LINKS.map((l, i) => (
-              <FooterLink key={l.href} href={l.href}>
+              <FooterLink key={l.href} href={resolveHref(l.href)}>
                 {t.nav[i]}
               </FooterLink>
             ))}
@@ -66,7 +69,7 @@ export function Footer() {
           {/* Services */}
           <FooterCol title={t.footer.services}>
             {t.services.items.slice(0, 6).map((s, i) => (
-              <FooterLink key={i} href="#services">
+              <FooterLink key={i} href={resolveHref("#services")}>
                 {s.title.split("&")[0].split("(")[0].trim()}
               </FooterLink>
             ))}
@@ -90,7 +93,7 @@ export function Footer() {
             </a>
             <div className="mt-2 text-xs text-white/40">{t.footer.foundedPrefix} {t.founded}</div>
             <a
-              href="#contact"
+              href={resolveHref("#contact")}
               className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-blood px-4 py-2 font-heading text-sm font-semibold text-white shadow-glow-sm transition-transform hover:-translate-y-0.5"
             >
               {t.footer.quote} <ArrowUpRight className="h-4 w-4" />
