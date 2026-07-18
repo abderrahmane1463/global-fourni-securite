@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { ProductGrid } from "@/components/product/ProductGrid";
+import { BoutiquePageHero } from "@/components/product/BoutiquePageHero";
 
 export const metadata: Metadata = {
   title: "Boutique — Caméras & équipements de sécurité",
@@ -24,22 +25,7 @@ export default function BoutiquePage() {
       <ScrollProgress />
       <Navbar />
       <main>
-        <section className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
-          <div className="absolute inset-0 -z-10 bg-noir" />
-          <div className="absolute inset-0 -z-10 bg-grid-lines [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_75%)]" />
-          <div className="ambient-red absolute -top-1/4 right-0 -z-10 h-[120%] w-[70%]" />
-
-          <div className="container-x flex flex-col items-center gap-5 text-center">
-            <span className="eyebrow">Boutique</span>
-            <h1 className="max-w-2xl font-heading text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl">
-              Équipez-vous en <span className="text-blood">caméras & sécurité</span>
-            </h1>
-            <p className="max-w-[58ch] text-ash sm:text-lg">
-              Du matériel professionnel, sélectionné et testé par notre équipe. Commandez en ligne,
-              livraison dans toute l'Algérie.
-            </p>
-          </div>
-        </section>
+        <BoutiquePageHero />
 
         <section className="relative pb-24 sm:pb-32">
           <div className="container-x">

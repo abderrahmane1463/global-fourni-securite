@@ -3,20 +3,24 @@
 import { motion } from "framer-motion";
 import { Microchip, Smartphone, Anchor, Eye } from "lucide-react";
 import type { Product } from "@/lib/products";
+import { useI18n } from "@/lib/i18n";
 import { SectionHeading } from "@/components/ui";
 import { staggerContainer, staggerItem } from "@/components/Reveal";
 
 const STEP_ICONS = [Microchip, Smartphone, Anchor, Eye];
 
 export function ProductHowItWorks({ product }: { product: Product }) {
+  const { lang, t } = useI18n();
+  const steps = product.content[lang].steps;
+
   return (
     <section className="relative py-24 sm:py-32">
       <div className="container-x">
         <SectionHeading
-          kicker="Mise en route"
-          title="Installation en"
-          highlight="4 étapes"
-          subtitle="Aucune compétence technique nécessaire — la caméra est prête en quelques minutes."
+          kicker={t.product.howItWorks.kicker}
+          title={t.product.howItWorks.title}
+          highlight={t.product.howItWorks.highlight}
+          subtitle={t.product.howItWorks.subtitle}
         />
 
         <motion.div
@@ -29,10 +33,10 @@ export function ProductHowItWorks({ product }: { product: Product }) {
           {/* connecting line on desktop */}
           <div className="pointer-events-none absolute left-0 right-0 top-8 hidden h-px bg-gradient-to-r from-transparent via-white/10 to-transparent lg:block" />
 
-          {product.steps.map((step, i) => {
+          {steps.map((step, i) => {
             const Icon = STEP_ICONS[i] ?? Eye;
             return (
-              <motion.div key={step.title} variants={staggerItem} className="relative flex flex-col items-start gap-4">
+              <motion.div key={i} variants={staggerItem} className="relative flex flex-col items-start gap-4">
                 <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-blood/30 bg-noir shadow-glow-sm">
                   <Icon className="h-7 w-7 text-blood" />
                   <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blood font-heading text-xs font-bold text-white">

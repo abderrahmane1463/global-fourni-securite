@@ -5,44 +5,50 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Maximize2, X } from "lucide-react";
 import type { Product } from "@/lib/products";
+import { useI18n } from "@/lib/i18n";
 import { SectionHeading } from "@/components/ui";
 
 export function ProductGallery({ product }: { product: Product }) {
+  const { lang, t } = useI18n();
+  const content = product.content[lang];
   const [active, setActive] = useState<{ src: string; alt: string } | null>(null);
 
   return (
     <section className="relative py-24 sm:py-32">
       <div className="container-x">
         <SectionHeading
-          kicker="Galerie"
-          title="Le produit en"
-          highlight="détail"
-          subtitle="Photos réelles et fiche technique complète — cliquez pour zoomer."
+          kicker={t.product.gallery.kicker}
+          title={t.product.gallery.title}
+          highlight={t.product.gallery.highlight}
+          subtitle={t.product.gallery.subtitle}
         />
 
         <div className="mt-16 grid gap-5 sm:grid-cols-3">
-          {product.images.map((img, i) => (
-            <motion.button
-              key={img.src}
-              onClick={() => setActive(img)}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-graphite"
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="(max-width:768px) 100vw, 33vw"
-                className="object-contain p-4 transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-noir/60 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
-                <Maximize2 className="h-4 w-4 text-white" />
-              </div>
-            </motion.button>
-          ))}
+          {product.images.map((src, i) => {
+            const alt = `${content.name} — ${i + 1}`;
+            return (
+              <motion.button
+                key={src}
+                onClick={() => setActive({ src, alt })}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-graphite"
+              >
+                <Image
+                  src={src}
+                  alt={alt}
+                  fill
+                  sizes="(max-width:768px) 100vw, 33vw"
+                  className="object-contain p-4 transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-noir/60 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
+                  <Maximize2 className="h-4 w-4 text-white" />
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
       </div>
 

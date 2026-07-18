@@ -4,26 +4,29 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { Product } from "@/lib/products";
+import { useI18n } from "@/lib/i18n";
 import { SectionHeading } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
 
 export function ProductFaq({ product }: { product: Product }) {
+  const { lang, t } = useI18n();
+  const faq = product.content[lang].faq;
   const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section className="relative py-24 sm:py-32">
       <div className="container-x">
         <SectionHeading
-          kicker="Questions fréquentes"
-          title="Tout ce qu'il faut"
-          highlight="savoir"
+          kicker={t.product.faq.kicker}
+          title={t.product.faq.title}
+          highlight={t.product.faq.highlight}
         />
 
         <div className="mx-auto mt-16 flex max-w-3xl flex-col gap-3">
-          {product.faq.map((item, i) => {
+          {faq.map((item, i) => {
             const isOpen = open === i;
             return (
-              <Reveal key={item.q} delay={i * 0.04} as="div">
+              <Reveal key={i} delay={i * 0.04} as="div">
                 <div
                   className={`overflow-hidden rounded-2xl border transition-colors duration-300 ${
                     isOpen ? "border-blood/40 bg-blood/[0.03]" : "border-white/10 bg-white/[0.02]"

@@ -3,18 +3,22 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/products";
+import { useI18n } from "@/lib/i18n";
 import { Reveal } from "@/components/Reveal";
 
 export function ProductFeatures({ product }: { product: Product }) {
+  const { lang } = useI18n();
+  const features = product.content[lang].features;
+
   return (
     <section className="relative py-24 sm:py-32">
       <div className="container-x flex flex-col gap-24">
-        {product.features.map((feature, i) => {
-          const Icon = feature.icon;
+        {features.map((feature, i) => {
+          const { icon: Icon, image } = product.featureMedia[i];
           const reversed = i % 2 === 1;
           return (
             <div
-              key={feature.title}
+              key={i}
               className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
                 reversed ? "lg:[&>*:first-child]:order-2" : ""
               }`}
@@ -22,7 +26,7 @@ export function ProductFeatures({ product }: { product: Product }) {
               <Reveal y={30}>
                 <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 bg-graphite">
                   <Image
-                    src={feature.image}
+                    src={image}
                     alt={feature.title}
                     fill
                     sizes="(max-width:1024px) 100vw, 50vw"

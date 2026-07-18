@@ -42,11 +42,14 @@ export const COMPANY = {
   },
 };
 
-// Flat-rate shipping, same price for every wilaya.
-export const DELIVERY = {
-  bureau: { label: "Retrait au bureau", price: 450 },
-  domicile: { label: "Livraison à domicile", price: 650 },
+// Flat-rate shipping, same price for every wilaya. Labels are localized
+// (see lib/content.ts `delivery`), prices are locale-independent.
+export const DELIVERY_PRICES = {
+  bureau: 450,
+  domicile: 650,
 } as const;
+
+export type DeliveryType = keyof typeof DELIVERY_PRICES;
 
 export const NAV_LINKS = [
   { label: "Accueil", href: "#accueil" },

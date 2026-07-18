@@ -5,12 +5,15 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ShieldCheck, Truck, BadgeCheck, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Product } from "@/lib/products";
-import { DELIVERY } from "@/lib/site";
+import { DELIVERY_PRICES } from "@/lib/site";
 import { formatPrice } from "@/lib/format";
+import { useI18n } from "@/lib/i18n";
 import { Particles } from "@/components/Particles";
 
 export function ProductHero({ product }: { product: Product }) {
   const reduce = useReducedMotion();
+  const { lang, t } = useI18n();
+  const content = product.content[lang];
   const [active, setActive] = useState(0);
   const images = product.images;
 
@@ -33,14 +36,14 @@ export function ProductHero({ product }: { product: Product }) {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="group relative aspect-square overflow-hidden rounded-3xl border border-white/10 bg-graphite"
           >
-            {images.map((img, i) => (
+            {images.map((src, i) => (
               <div
-                key={img.src}
+                key={src}
                 className={`absolute inset-0 transition-opacity duration-500 ${i === active ? "opacity-100" : "pointer-events-none opacity-0"}`}
               >
                 <Image
-                  src={img.src}
-                  alt={img.alt}
+                  src={src}
+                  alt={`${content.name} — ${i + 1}`}
                   fill
                   priority={i === 0}
                   sizes="(max-width:768px) 100vw, 50vw"
@@ -54,14 +57,14 @@ export function ProductHero({ product }: { product: Product }) {
               <>
                 <button
                   onClick={prev}
-                  aria-label="Image précédente"
+                  aria-label={t.product.imagePrev}
                   className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full glass text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </button>
                 <button
                   onClick={next}
-                  aria-label="Image suivante"
+                  aria-label={t.product.imageNext}
                   className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full glass text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 >
                   <ChevronRight className="h-5 w-5" />
@@ -72,16 +75,16 @@ export function ProductHero({ product }: { product: Product }) {
 
           {images.length > 1 && (
             <div className="flex gap-3">
-              {images.map((img, i) => (
+              {images.map((src, i) => (
                 <button
-                  key={img.src}
+                  key={src}
                   onClick={() => setActive(i)}
-                  aria-label={`Voir l'image ${i + 1}`}
+                  aria-label={`${content.name} — ${i + 1}`}
                   className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border transition-all duration-300 sm:h-20 sm:w-20 ${
                     i === active ? "border-blood shadow-glow-sm" : "border-white/10 opacity-60 hover:opacity-100"
                   }`}
                 >
-                  <Image src={img.src} alt="" fill sizes="80px" className="object-contain bg-graphite p-1.5" />
+                  <Image src={src} alt="" fill sizes="80px" className="object-contain bg-graphite p-1.5" />
                 </button>
               ))}
             </div>
@@ -96,7 +99,7 @@ export function ProductHero({ product }: { product: Product }) {
             transition={{ duration: 0.6 }}
             className="flex flex-wrap items-center gap-2"
           >
-            {product.badges.map((b) => (
+            {content.badges.map((b) => (
               <span
                 key={b}
                 className="glass rounded-full px-3 py-1.5 text-xs font-semibold text-white/80"
@@ -112,7 +115,7 @@ export function ProductHero({ product }: { product: Product }) {
             transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             className="font-heading text-3xl font-extrabold leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl"
           >
-            {product.name}
+            {content.name}
           </motion.h1>
 
           <motion.p
@@ -121,7 +124,7 @@ export function ProductHero({ product }: { product: Product }) {
             transition={{ duration: 0.7, delay: 0.12 }}
             className="max-w-lg text-base leading-relaxed text-ash sm:text-lg"
           >
-            {product.tagline}
+            {content.tagline}
           </motion.p>
 
           <motion.p
@@ -130,7 +133,7 @@ export function ProductHero({ product }: { product: Product }) {
             transition={{ duration: 0.7, delay: 0.18 }}
             className="max-w-lg text-sm leading-relaxed text-white/60"
           >
-            {product.shortDescription}
+            {content.shortDescription}
           </motion.p>
 
           <motion.div
@@ -140,11 +143,11 @@ export function ProductHero({ product }: { product: Product }) {
             className="flex items-baseline gap-3"
           >
             <span className="font-heading text-4xl font-extrabold text-white">
-              {formatPrice(product.price)}
+              {formatPrice(product.price, lang)}
             </span>
             {product.compareAtPrice && (
               <span className="font-heading text-lg text-white/40 line-through">
-                {formatPrice(product.compareAtPrice)}
+                {formatPrice(product.compareAtPrice, lang)}
               </span>
             )}
           </motion.div>
@@ -155,8 +158,9 @@ export function ProductHero({ product }: { product: Product }) {
             transition={{ duration: 0.6, delay: 0.26 }}
             className="text-xs text-white/40"
           >
-            + Livraison {formatPrice(DELIVERY.bureau.price)} (bureau) ou{" "}
-            {formatPrice(DELIVERY.domicile.price)} (domicile) — toutes wilayas
+            + {t.product.deliveryPrefix} {formatPrice(DELIVERY_PRICES.bureau, lang)} (
+            {t.delivery.bureauLabel}) {t.product.deliveryOr} {formatPrice(DELIVERY_PRICES.domicile, lang)} (
+            {t.delivery.domicileLabel}) — {t.product.deliveryAllWilayas}
           </motion.p>
 
           <motion.div
@@ -169,13 +173,13 @@ export function ProductHero({ product }: { product: Product }) {
               href="#commander"
               className="group inline-flex items-center gap-2 rounded-full bg-blood px-8 py-4 font-heading text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-blood-bright hover:shadow-glow-lg"
             >
-              Commander maintenant
+              {t.product.orderNow}
             </a>
             <a
               href="#specifications"
               className="glass inline-flex items-center gap-2 rounded-full px-7 py-4 font-heading text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-blood/50"
             >
-              Voir les caractéristiques
+              {t.product.seeSpecs}
             </a>
           </motion.div>
 
@@ -186,13 +190,13 @@ export function ProductHero({ product }: { product: Product }) {
             className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/60"
           >
             <span className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-blood" /> Produit garanti
+              <ShieldCheck className="h-4 w-4 text-blood" /> {t.product.guarantee}
             </span>
             <span className="flex items-center gap-2">
-              <Truck className="h-4 w-4 text-blood" /> Livraison dans toute l'Algérie
+              <Truck className="h-4 w-4 text-blood" /> {t.product.deliveryAll}
             </span>
             <span className="flex items-center gap-2">
-              <BadgeCheck className="h-4 w-4 text-blood" /> Vendu par Global Fourni Sécurité
+              <BadgeCheck className="h-4 w-4 text-blood" /> {t.product.soldBy}
             </span>
           </motion.div>
         </div>

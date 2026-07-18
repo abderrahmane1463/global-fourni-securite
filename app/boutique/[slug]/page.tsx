@@ -22,24 +22,27 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
   if (!product) return {};
 
+  // SSR metadata is crawler-facing and stays French, consistent with the
+  // rest of the site's server-rendered <head> (language toggle is client-side).
+  const c = product.content.fr;
   const url = `${SITE_URL}/boutique/${product.slug}`;
-  const image = `${SITE_URL}${product.images[0].src}`;
+  const image = `${SITE_URL}${product.images[0]}`;
 
   return {
-    title: `${product.name} (${product.model}) — Boutique`,
-    description: product.shortDescription,
+    title: `${c.name} (${product.model}) — Boutique`,
+    description: c.shortDescription,
     alternates: { canonical: url },
     openGraph: {
-      title: `${product.name} — Global Fourni Sécurité`,
-      description: product.shortDescription,
+      title: `${c.name} — Global Fourni Sécurité`,
+      description: c.shortDescription,
       url,
       type: "website",
-      images: [{ url: image, alt: product.images[0].alt }],
+      images: [{ url: image, alt: c.name }],
     },
     twitter: {
       card: "summary_large_image",
-      title: product.name,
-      description: product.shortDescription,
+      title: c.name,
+      description: c.shortDescription,
       images: [image],
     },
   };
@@ -54,13 +57,14 @@ export default async function ProductRoute({
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
+  const c = product.content.fr;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: product.name,
+    name: c.name,
     model: product.model,
-    description: product.shortDescription,
-    image: product.images.map((img) => `${SITE_URL}${img.src}`),
+    description: c.shortDescription,
+    image: product.images.map((src) => `${SITE_URL}${src}`),
     brand: { "@type": "Brand", name: "Global Fourni Sécurité" },
     offers: {
       "@type": "Offer",

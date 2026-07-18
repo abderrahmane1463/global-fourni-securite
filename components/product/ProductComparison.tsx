@@ -3,19 +3,23 @@
 import { motion } from "framer-motion";
 import { Check, X, ShieldCheck } from "lucide-react";
 import type { Product } from "@/lib/products";
+import { useI18n } from "@/lib/i18n";
 import { SectionHeading } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
 
 export function ProductComparison({ product }: { product: Product }) {
+  const { lang, t } = useI18n();
+  const comparison = product.content[lang].comparison;
+
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
       <div className="ambient-red pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2" />
       <div className="container-x">
         <SectionHeading
-          kicker="Comparatif"
-          title="Pourquoi choisir"
-          highlight="ce modèle"
-          subtitle="Face à une caméra Wi-Fi classique, l'O-KAM Pro 4G s'installe là où les autres ne peuvent pas."
+          kicker={t.product.comparison.kicker}
+          title={t.product.comparison.title}
+          highlight={t.product.comparison.highlight}
+          subtitle={t.product.comparison.subtitle}
         />
 
         <Reveal delay={0.1} className="mt-16 overflow-hidden rounded-3xl border border-white/10">
@@ -29,14 +33,14 @@ export function ProductComparison({ product }: { product: Product }) {
             </div>
             <div className="p-4 sm:p-6">
               <span className="font-heading text-xs font-semibold text-white/50 sm:text-sm">
-                Caméra Wi-Fi classique
+                {t.product.comparison.ordinaryCamera}
               </span>
             </div>
           </div>
 
-          {product.comparison.map((row, i) => (
+          {comparison.map((row, i) => (
             <motion.div
-              key={row.label}
+              key={i}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
