@@ -42,7 +42,7 @@ function validate(form: FormState, errors: Content["order"]["form"]["errors"]): 
   if (!/^0\d{8,9}$/.test(form.phone.trim())) out.phone = errors.phone;
   if (!form.wilaya) out.wilaya = errors.wilaya;
   if (form.commune.trim().length < 2) out.commune = errors.commune;
-  if (form.address.trim().length < 5) out.address = errors.address;
+  if (form.address.trim().length < 1) out.address = errors.address;
   if (form.quantity < 1) out.quantity = errors.quantity;
   return out;
 }
