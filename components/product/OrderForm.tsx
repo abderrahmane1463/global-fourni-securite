@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Send, Loader2, CheckCircle2, Minus, Plus, MessageCircle, Building2, Home } from "lucide-react";
+import { Send, Loader2, CheckCircle2, AlertCircle, Minus, Plus, MessageCircle, Building2, Home } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { COMPANY, DELIVERY_PRICES, type DeliveryType } from "@/lib/site";
 import { WILAYAS, wilayaLabel, getWilayaByCode } from "@/lib/wilayas";
 import { formatPrice } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
-import type { Content, Lang } from "@/lib/content";
+import { CONTENT, type Content, type Lang } from "@/lib/content";
 import { SectionHeading } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
 
@@ -47,34 +47,33 @@ function validate(form: FormState, errors: Content["order"]["form"]["errors"]): 
   return out;
 }
 
-// Isolated so a real backend (fetch("/api/orders", …)) can replace the
-// WhatsApp hand-off later without touching the form/validation logic above.
-function buildOrderMessage(
-  product: Product,
-  form: FormState,
-  lang: Lang,
-  t: Content,
-): string {
-  const productName = product.content[lang].name;
-  const deliveryLabel = form.deliveryType === "bureau" ? t.delivery.bureauLabel : t.delivery.domicileLabel;
+// The sheet is read by the shop owner, so it always uses the French labels
+// regardless of which language the customer ordered in (kept as metadata).
+function buildOrderPayload(product: Product, form: FormState, lang: Lang) {
   const deliveryPrice = DELIVERY_PRICES[form.deliveryType];
-  const wilayaText = getWilayaByCode(form.wilaya);
+  const deliveryLabel =
+    form.deliveryType === "bureau" ? CONTENT.fr.delivery.bureauLabel : CONTENT.fr.delivery.domicileLabel;
+  const wilaya = getWilayaByCode(form.wilaya);
   const subtotal = product.price * form.quantity;
-  const total = subtotal + deliveryPrice;
-  const wa = t.order.wa;
-  return (
-    `${wa.newOrder} — ${productName} (${product.model})\n\n` +
-    `${wa.client} : ${form.name}\n` +
-    `${wa.phone} : ${form.phone}\n` +
-    `${wa.wilaya} : ${wilayaText ? wilayaLabel(wilayaText, lang) : form.wilaya}\n` +
-    `${wa.commune} : ${form.commune}\n` +
-    `${wa.address} : ${form.address}\n` +
-    `${wa.quantity} : ${form.quantity}\n` +
-    `${wa.unitPrice} : ${formatPrice(product.price, lang)}\n` +
-    `${wa.delivery} : ${deliveryLabel} (${formatPrice(deliveryPrice, lang)})\n` +
-    `${wa.total} : ${formatPrice(total, lang)}` +
-    (form.notes.trim() ? `\n\n${wa.notes} : ${form.notes.trim()}` : "")
-  );
+
+  return {
+    productName: product.content.fr.name,
+    model: product.model,
+    quantity: form.quantity,
+    unitPrice: product.price,
+    deliveryType: form.deliveryType,
+    deliveryLabel,
+    deliveryPrice,
+    subtotal,
+    total: subtotal + deliveryPrice,
+    customerName: form.name,
+    phone: form.phone,
+    wilaya: wilaya ? wilayaLabel(wilaya, "fr") : form.wilaya,
+    commune: form.commune,
+    address: form.address,
+    notes: form.notes,
+    language: lang,
+  };
 }
 
 export function OrderForm({ product }: { product: Product }) {
@@ -83,7 +82,7 @@ export function OrderForm({ product }: { product: Product }) {
   const f = t.order.form;
   const [form, setForm] = useState<FormState>(INITIAL);
   const [touched, setTouched] = useState<Partial<Record<keyof FormState, boolean>>>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const errors = validate(form, f.errors);
   const hasErrors = Object.keys(errors).length > 0;
@@ -93,7 +92,7 @@ export function OrderForm({ product }: { product: Product }) {
 
   const markTouched = (key: keyof FormState) => setTouched((s) => ({ ...s, [key]: true }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched({
       name: true,
@@ -106,16 +105,24 @@ export function OrderForm({ product }: { product: Product }) {
     if (hasErrors) return;
 
     setStatus("sending");
-    const text = encodeURIComponent(buildOrderMessage(product, form, lang, t));
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildOrderPayload(product, form, lang)),
+      });
+      if (!res.ok) throw new Error("order_failed");
+
       setStatus("sent");
-      window.open(`https://wa.me/${COMPANY.whatsapp}?text=${text}`, "_blank");
       setTimeout(() => {
         setStatus("idle");
         setForm(INITIAL);
         setTouched({});
       }, 3500);
-    }, 800);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
 
   const totalDelivery = DELIVERY_PRICES[form.deliveryType];
@@ -351,6 +358,17 @@ export function OrderForm({ product }: { product: Product }) {
                     className="flex items-center gap-2"
                   >
                     <CheckCircle2 className="h-4 w-4" /> {f.sent}
+                  </motion.span>
+                )}
+                {status === "error" && (
+                  <motion.span
+                    key="error"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center gap-2 text-center"
+                  >
+                    <AlertCircle className="h-4 w-4" /> {f.error}
                   </motion.span>
                 )}
               </AnimatePresence>

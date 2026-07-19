@@ -327,6 +327,7 @@ const fr = {
       send: "Envoyer ma commande",
       sending: "Préparation…",
       sent: "Commande envoyée !",
+      error: "Une erreur est survenue. Réessayez ou commandez via WhatsApp.",
       direct: "Ou commandez directement sur WhatsApp",
       errors: {
         name: "Entrez votre nom complet.",
@@ -623,6 +624,7 @@ const ar: Content = {
       send: "إرسال طلبي",
       sending: "جارٍ التحضير…",
       sent: "تم إرسال الطلب !",
+      error: "حدث خطأ. أعد المحاولة أو اطلب عبر واتساب.",
       direct: "أو اطلب مباشرة عبر واتساب",
       errors: {
         name: "أدخل اسمك الكامل.",
