@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { COMPANY } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
+import { trackLead } from "@/lib/analytics";
 import { Reveal } from "./Reveal";
 
 const TikTokIcon = ({ className = "" }: { className?: string }) => (
@@ -42,6 +43,7 @@ export function Contact() {
       `${c.wa.greeting}\n\n${c.wa.name} ${form.name}.\n${c.wa.phone} : ${form.phone}\n${c.wa.service} : ${form.service || "—"}\n\n${form.message}`,
     );
     setTimeout(() => {
+      trackLead({ name: "Devis — formulaire de contact" });
       setStatus("sent");
       window.open(`https://wa.me/${COMPANY.whatsapp}?text=${text}`, "_blank");
       setTimeout(() => setStatus("idle"), 3500);

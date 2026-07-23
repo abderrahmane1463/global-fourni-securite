@@ -9,6 +9,7 @@ import { WILAYAS, wilayaLabel, getWilayaByCode } from "@/lib/wilayas";
 import { formatPrice } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
 import { CONTENT, type Content, type Lang } from "@/lib/content";
+import { getAttribution, trackLead } from "@/lib/analytics";
 import { SectionHeading } from "@/components/ui";
 import { Reveal } from "@/components/Reveal";
 
@@ -73,6 +74,7 @@ function buildOrderPayload(product: Product, form: FormState, lang: Lang) {
     address: form.address,
     notes: form.notes,
     language: lang,
+    ...getAttribution(),
   };
 }
 
@@ -112,6 +114,11 @@ export function OrderForm({ product }: { product: Product }) {
         body: JSON.stringify(buildOrderPayload(product, form, lang)),
       });
       if (!res.ok) throw new Error("order_failed");
+
+      trackLead({
+        name: product.content.fr.name,
+        value: product.price * form.quantity + DELIVERY_PRICES[form.deliveryType],
+      });
 
       setStatus("sent");
       setTimeout(() => {

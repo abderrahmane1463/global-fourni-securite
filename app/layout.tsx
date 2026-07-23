@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat, Poppins, Cairo } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { MetaPixel } from "@/components/MetaPixel";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -123,6 +124,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <MetaPixel />
         <Providers>{children}</Providers>
       </body>
     </html>

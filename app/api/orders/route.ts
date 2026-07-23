@@ -9,6 +9,14 @@ type OrderPayload = {
   wilaya?: string;
   commune?: string;
   address?: string;
+  // Ad attribution, captured client-side from the landing URL (first touch
+  // wins for the session). Purely informational — never required.
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_content?: string;
+  utm_term?: string;
+  fbclid?: string;
 };
 
 // Forwards validated order data to a Google Sheets webhook (Apps Script Web App).
