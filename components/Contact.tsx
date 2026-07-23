@@ -115,7 +115,7 @@ export function Contact() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-2 rounded-full glass px-4 py-2.5 text-sm text-white/70 transition-all hover:-translate-y-0.5 hover:border-blood/50 hover:text-white"
+                    className="group flex items-center gap-2 rounded-full glass px-4 py-2.5 text-sm text-white/70 transition-all hover:-translate-y-0.5 hover:border-blood/50 hover:text-white light:hover:text-zinc-900"
                   >
                     <Icon className="h-4 w-4 text-blood" />
                     <span className="max-w-[140px] truncate">{s.label}</span>
@@ -130,7 +130,7 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Ouvrir l'itinéraire vers le magasin sur Google Maps"
-              className="group relative block aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-graphite to-noir transition-all duration-300 hover:border-blood/50 hover:shadow-glow-sm"
+              className="group relative block aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-graphite to-noir light:from-zinc-100 light:to-white transition-all duration-300 hover:border-blood/50 hover:shadow-glow-sm"
             >
               <div className="absolute inset-0 bg-grid-lines [background-size:32px_32px] opacity-40 transition-transform duration-500 group-hover:scale-105" />
               <div className="ambient-red absolute inset-0 opacity-70" />
@@ -194,7 +194,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={status !== "idle"}
-                className="group relative mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-blood px-6 py-4 font-heading font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg disabled:opacity-90"
+                className="group relative mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-blood px-6 py-4 font-heading font-semibold text-white text-white-always shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg disabled:opacity-90"
               >
                 <AnimatePresence mode="wait">
                   {status === "idle" && (

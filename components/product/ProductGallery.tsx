@@ -43,8 +43,8 @@ export function ProductGallery({ product }: { product: Product }) {
                   sizes="(max-width:768px) 100vw, 33vw"
                   className="object-contain p-4 transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-noir/60 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
-                  <Maximize2 className="h-4 w-4 text-white" />
+                <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(255,255,255,0.2)] bg-black/40 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
+                  <Maximize2 className="h-4 w-4 text-white text-white-always" />
                 </div>
               </motion.button>
             );
@@ -62,7 +62,7 @@ export function ProductGallery({ product }: { product: Product }) {
             onClick={() => setActive(null)}
           >
             <button
-              className="glass absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full text-white"
+              className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.2)] bg-[rgba(255,255,255,0.1)] text-white text-white-always backdrop-blur"
               aria-label="Fermer"
             >
               <X className="h-5 w-5" />

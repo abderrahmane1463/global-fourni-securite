@@ -32,7 +32,7 @@ export function Services() {
               <motion.article
                 key={i}
                 variants={staggerItem}
-                className="border-glow group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors duration-300 hover:bg-white/[0.04]"
+                className="border-glow group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors duration-300 hover:bg-white/[0.04] light:hover:bg-black/[0.04]"
               >
                 {/* hover glow blob */}
                 <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-blood/20 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />

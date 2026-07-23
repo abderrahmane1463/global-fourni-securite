@@ -39,7 +39,7 @@ export function ProductHowItWorks({ product }: { product: Product }) {
               <motion.div key={i} variants={staggerItem} className="relative flex flex-col items-start gap-4">
                 <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-blood/30 bg-noir shadow-glow-sm">
                   <Icon className="h-7 w-7 text-blood" />
-                  <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blood font-heading text-xs font-bold text-white">
+                  <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blood font-heading text-xs font-bold text-white text-white-always">
                     {i + 1}
                   </span>
                 </div>

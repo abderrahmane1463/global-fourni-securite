@@ -22,7 +22,7 @@ export function ProductHero({ product }: { product: Product }) {
 
   return (
     <section className="relative overflow-hidden pb-16 pt-32 sm:pt-36">
-      <div className="absolute inset-0 -z-10 bg-noir" />
+      <div className="absolute inset-0 -z-10 bg-[#050505] light:bg-white" />
       <div className="absolute inset-0 -z-10 bg-grid-lines [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_75%)]" />
       <div className="ambient-red absolute -top-1/4 right-0 -z-10 h-[120%] w-[70%]" />
       <Particles className="-z-10 opacity-50" />
@@ -171,7 +171,7 @@ export function ProductHero({ product }: { product: Product }) {
           >
             <a
               href="#commander"
-              className="group inline-flex items-center gap-2 rounded-full bg-blood px-8 py-4 font-heading text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-blood-bright hover:shadow-glow-lg"
+              className="group inline-flex items-center gap-2 rounded-full bg-blood px-8 py-4 font-heading text-sm font-semibold text-white text-white-always shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-blood-bright hover:shadow-glow-lg"
             >
               {t.product.orderNow}
             </a>

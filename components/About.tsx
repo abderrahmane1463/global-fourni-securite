@@ -101,7 +101,7 @@ export function About() {
               const Icon = PILLAR_ICONS[i];
               return (
                 <Reveal key={i} delay={0.1 + i * 0.08} as="div">
-                  <div className="group flex items-start gap-4 rounded-2xl border border-white/5 p-4 transition-colors hover:border-blood/30 hover:bg-white/[0.02]">
+                  <div className="group flex items-start gap-4 rounded-2xl border border-white/5 p-4 transition-colors hover:border-blood/30 hover:bg-white/[0.02] light:hover:bg-black/[0.02]">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-noir transition-all group-hover:border-blood/50 group-hover:shadow-glow-sm">
                       <Icon className="h-5 w-5 text-blood" />
                     </div>

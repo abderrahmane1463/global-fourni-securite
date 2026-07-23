@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -62,7 +64,13 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Site defaults to the dark brand theme; `light:` overrides apply when
+    // <html data-theme="light">, mirroring Tailwind's own dark: ergonomics.
+    plugin(({ addVariant }) => {
+      addVariant("light", '[data-theme="light"] &');
+    }),
+  ],
 };
 
 export default config;

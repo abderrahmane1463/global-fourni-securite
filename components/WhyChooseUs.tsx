@@ -10,7 +10,7 @@ export function WhyChooseUs() {
   const { t } = useI18n();
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-noir via-graphite/40 to-noir" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-noir via-graphite/40 to-noir light:from-white light:via-zinc-50 light:to-white" />
       <div className="ambient-red pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2" />
 
       <div className="container-x">

@@ -2,7 +2,7 @@ import { LogoMark } from "@/components/Logo";
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-noir">
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-[#050505] light:bg-white">
       <div className="ambient-red absolute inset-0" />
       <div className="relative animate-pulse">
         <LogoMark className="h-16 w-16 drop-shadow-[0_0_30px_rgba(225,6,0,0.6)]" />

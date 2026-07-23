@@ -37,7 +37,7 @@ export function WhatsAppFloat() {
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
-                className="relative hidden rounded-2xl border border-white/10 bg-noir/90 px-4 py-2.5 text-sm text-white shadow-lg backdrop-blur sm:block"
+                className="relative hidden rounded-2xl border border-white/10 bg-noir/90 px-4 py-2.5 text-sm text-white shadow-lg backdrop-blur light:border-black/10 light:bg-white/95 sm:block"
               >
                 {t.waTip} 👋
                 <button
@@ -56,7 +56,7 @@ export function WhatsAppFloat() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contacter sur WhatsApp"
-            className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-[0_8px_30px_rgba(16,185,129,0.5)] transition-transform duration-300 hover:scale-110"
+            className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white text-white-always shadow-[0_8px_30px_rgba(16,185,129,0.5)] transition-transform duration-300 hover:scale-110"
           >
             <span className="absolute inset-0 animate-ping rounded-full bg-emerald-500 opacity-40" />
             <MessageCircle className="relative h-7 w-7" />

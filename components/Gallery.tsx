@@ -51,15 +51,15 @@ export function Gallery() {
                     ) : (
                       <Camera className="h-4 w-4 text-blood" />
                     )}
-                    <span className="font-heading text-sm font-bold text-white">{item.label}</span>
+                    <span className="font-heading text-sm font-bold text-white text-white-always">{item.label}</span>
                   </div>
-                  <p className="text-xs text-white/60">{item.caption}</p>
+                  <p className="text-xs text-[rgba(255,255,255,0.6)]">{item.caption}</p>
                 </div>
               </div>
 
-              {/* hover zoom action */}
-              <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-noir/60 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
-                <Maximize2 className="h-4 w-4 text-white" />
+              {/* hover zoom action — always dark since it overlays a photo */}
+              <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/40 opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100">
+                <Maximize2 className="h-4 w-4 text-white text-white-always" />
               </div>
             </motion.button>
           ))}
@@ -77,7 +77,7 @@ export function Gallery() {
             onClick={() => setActive(null)}
           >
             <button
-              className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full glass text-white"
+              className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.2)] bg-[rgba(255,255,255,0.1)] text-white text-white-always backdrop-blur"
               aria-label="Fermer"
             >
               <X className="h-5 w-5" />
@@ -98,9 +98,9 @@ export function Gallery() {
                   ) : (
                     <Camera className="h-5 w-5 text-blood" />
                   )}
-                  <h3 className="font-heading text-xl font-bold text-white">{active.label}</h3>
+                  <h3 className="font-heading text-xl font-bold text-white text-white-always">{active.label}</h3>
                 </div>
-                <p className="mt-1 text-sm text-white/60">{active.caption}</p>
+                <p className="mt-1 text-sm text-[rgba(255,255,255,0.6)]">{active.caption}</p>
               </div>
             </motion.div>
           </motion.div>

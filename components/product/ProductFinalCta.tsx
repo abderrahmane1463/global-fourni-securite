@@ -44,7 +44,7 @@ export function ProductFinalCta({ product }: { product: Product }) {
           <motion.a
             href="#commander"
             whileHover={{ y: -2 }}
-            className="mt-2 inline-flex items-center gap-2 rounded-full bg-blood px-10 py-4 font-heading text-base font-semibold text-white shadow-glow transition-all duration-300 hover:shadow-glow-lg"
+            className="mt-2 inline-flex items-center gap-2 rounded-full bg-blood px-10 py-4 font-heading text-base font-semibold text-white text-white-always shadow-glow transition-all duration-300 hover:shadow-glow-lg"
           >
             {t.product.orderNow}
           </motion.a>

@@ -17,7 +17,7 @@ export function ProductCard({ product }: { product: Product }) {
     <motion.div variants={staggerItem}>
       <Link
         href={`/boutique/${product.slug}`}
-        className="group border-glow relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] transition-colors duration-300 hover:bg-white/[0.04]"
+        className="group border-glow relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] transition-colors duration-300 hover:bg-white/[0.04] light:hover:bg-black/[0.04]"
       >
         <div className="relative aspect-square overflow-hidden bg-graphite">
           <Image
@@ -29,7 +29,7 @@ export function ProductCard({ product }: { product: Product }) {
           />
           <div className="ambient-red pointer-events-none absolute inset-0 opacity-30 mix-blend-screen" />
           {content.badges[0] && (
-            <span className="absolute left-4 top-4 rounded-full bg-blood px-3 py-1 font-heading text-xs font-semibold text-white shadow-glow-sm">
+            <span className="absolute left-4 top-4 rounded-full bg-blood px-3 py-1 font-heading text-xs font-semibold text-white text-white-always shadow-glow-sm">
               {content.badges[0]}
             </span>
           )}

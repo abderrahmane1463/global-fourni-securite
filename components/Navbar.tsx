@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Menu, X, Phone, Languages } from "lucide-react";
+import { Menu, X, Phone, Languages, Sun, Moon } from "lucide-react";
 import { Logo } from "./Logo";
 import { NAV_LINKS, COMPANY } from "@/lib/site";
 import { useI18n } from "@/lib/i18n";
+import { useTheme } from "@/lib/theme";
 
 // Anchor links (#section) only work while already on the homepage;
 // from any other route they need the "/" prefix to navigate back first.
@@ -21,10 +22,23 @@ function LangToggle({ className = "" }: { className?: string }) {
     <button
       onClick={toggle}
       aria-label="Changer de langue / تغيير اللغة"
-      className={`flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 font-heading text-sm font-semibold text-white/80 transition-all hover:border-blood/50 hover:text-white ${className}`}
+      className={`flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 font-heading text-sm font-semibold text-white/80 transition-all hover:border-blood/50 hover:text-white light:hover:text-zinc-900 ${className}`}
     >
       <Languages className="h-4 w-4 text-blood" />
       {t.langToggle}
+    </button>
+  );
+}
+
+function ThemeToggle({ className = "" }: { className?: string }) {
+  const { theme, toggle } = useTheme();
+  return (
+    <button
+      onClick={toggle}
+      aria-label={theme === "dark" ? "Activer le mode clair" : "Activer le mode sombre"}
+      className={`flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/80 transition-all hover:border-blood/50 hover:text-white light:hover:text-zinc-900 ${className}`}
+    >
+      {theme === "dark" ? <Sun className="h-4 w-4 text-blood" /> : <Moon className="h-4 w-4 text-blood" />}
     </button>
   );
 }
@@ -67,7 +81,7 @@ export function Navbar() {
               <li key={link.href}>
                 <a
                   href={resolveHref(link.href)}
-                  className="group relative py-2 font-heading text-sm font-medium text-white/80 transition-colors hover:text-white"
+                  className="group relative py-2 font-heading text-sm font-medium text-white/80 transition-colors hover:text-white light:hover:text-zinc-900"
                 >
                   {t.nav[i]}
                   <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 rounded-full bg-blood shadow-glow-sm transition-all duration-300 group-hover:w-full" />
@@ -77,23 +91,25 @@ export function Navbar() {
           </ul>
 
           <div className="hidden items-center gap-3 lg:flex">
+            <ThemeToggle />
             <LangToggle />
             <a
               href={`tel:${COMPANY.phoneRaw}`}
-              className="flex items-center gap-2 font-heading text-sm font-medium text-white/70 transition-colors hover:text-white"
+              className="flex items-center gap-2 font-heading text-sm font-medium text-white/70 transition-colors hover:text-white light:hover:text-zinc-900"
             >
               <Phone className="h-4 w-4 text-blood" />
               <span dir="ltr">{COMPANY.phoneDisplay}</span>
             </a>
             <a
               href={resolveHref("#contact")}
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-blood px-5 py-2.5 font-heading text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-blood px-5 py-2.5 font-heading text-sm font-semibold text-white text-white-always shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg"
             >
               <span className="relative z-10">{t.cta.quote}</span>
             </a>
           </div>
 
           <div className="flex items-center gap-2 lg:hidden">
+            <ThemeToggle />
             <LangToggle />
             <button
               onClick={() => setOpen(true)}
@@ -110,7 +126,7 @@ export function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-50 flex flex-col bg-noir/95 backdrop-blur-2xl lg:hidden"
+            className="fixed inset-0 z-50 flex flex-col bg-noir/95 backdrop-blur-2xl light:bg-white/95 lg:hidden"
             initial={{ opacity: 0, clipPath: reduce ? undefined : "circle(0% at 90% 5%)" }}
             animate={{ opacity: 1, clipPath: reduce ? undefined : "circle(150% at 90% 5%)" }}
             exit={{ opacity: 0, clipPath: reduce ? undefined : "circle(0% at 90% 5%)" }}
@@ -157,7 +173,7 @@ export function Navbar() {
                 <a
                   href={resolveHref("#contact")}
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-center rounded-full bg-blood px-6 py-4 font-heading font-semibold text-white shadow-glow"
+                  className="flex items-center justify-center rounded-full bg-blood px-6 py-4 font-heading font-semibold text-white text-white-always shadow-glow"
                 >
                   {t.cta.quote}
                 </a>

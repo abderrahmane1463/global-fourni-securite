@@ -107,9 +107,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="fr"
       dir="ltr"
+      data-theme="dark"
+      suppressHydrationWarning
       className={`${montserrat.variable} ${poppins.variable} ${cairo.variable}`}
     >
       <body>
+        {/* Applies a saved theme before first paint, avoiding a dark->light flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('gfs-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

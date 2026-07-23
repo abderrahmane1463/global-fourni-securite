@@ -24,7 +24,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-gradient-to-b from-noir to-black">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-gradient-to-b from-noir to-black light:from-white light:to-zinc-50">
       {/* red top glow border */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blood to-transparent" />
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-blood/10 to-transparent" />
@@ -79,7 +79,7 @@ export function Footer() {
           <FooterCol title={t.footer.contact}>
             <a
               href={`tel:${COMPANY.phoneRaw}`}
-              className="flex items-center gap-2 text-sm text-ash transition-colors hover:text-white"
+              className="flex items-center gap-2 text-sm text-ash transition-colors hover:text-white light:hover:text-zinc-900"
             >
               <Phone className="h-4 w-4 text-blood" /> <span dir="ltr">{COMPANY.phoneDisplay}</span>
             </a>
@@ -87,14 +87,14 @@ export function Footer() {
               href={COMPANY.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-2 text-sm text-ash transition-colors hover:text-white"
+              className="flex items-start gap-2 text-sm text-ash transition-colors hover:text-white light:hover:text-zinc-900"
             >
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-blood" /> {COMPANY.location}
             </a>
             <div className="mt-2 text-xs text-white/40">{t.footer.foundedPrefix} {t.founded}</div>
             <a
               href={resolveHref("#contact")}
-              className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-blood px-4 py-2 font-heading text-sm font-semibold text-white shadow-glow-sm transition-transform hover:-translate-y-0.5"
+              className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-blood px-4 py-2 font-heading text-sm font-semibold text-white text-white-always shadow-glow-sm transition-transform hover:-translate-y-0.5"
             >
               {t.footer.quote} <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -129,7 +129,7 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
     <li>
       <a
         href={href}
-        className="group inline-flex items-center gap-1 text-sm text-ash transition-colors hover:text-white"
+        className="group inline-flex items-center gap-1 text-sm text-ash transition-colors hover:text-white light:hover:text-zinc-900"
       >
         <span className="h-px w-0 bg-blood transition-all duration-300 group-hover:w-3" />
         {children}

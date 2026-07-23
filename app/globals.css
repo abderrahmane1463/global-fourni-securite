@@ -9,7 +9,7 @@
 
 @layer base {
   * {
-    @apply border-white/5;
+    @apply border-white/5 light:border-black/5;
   }
 
   html {
@@ -18,13 +18,14 @@
   }
 
   body {
-    @apply bg-noir font-body text-white/80 antialiased;
+    @apply bg-noir font-body text-white/80 antialiased light:bg-white light:text-zinc-700;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5 {
-    @apply font-heading text-white;
+    @apply font-heading text-white light:text-zinc-900;
     text-wrap: balance;
   }
 
@@ -57,7 +58,7 @@
 
   /* Frosted glass panel — used deliberately, not everywhere */
   .glass {
-    @apply border border-white/10 bg-white/[0.03] backdrop-blur-xl;
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-xl light:border-black/[0.08] light:bg-white/70 light:shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(0,0,0,0.08)];
   }
 
   /* Animated conic border on hover */
@@ -119,6 +120,75 @@
     rgba(225, 6, 0, 0.05) 40%,
     transparent 70%
   );
+}
+
+/* ---------- Light theme ---------- */
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f4f4f5;
+}
+
+[data-theme="light"] .text-glow {
+  text-shadow: none;
+}
+
+[data-theme="light"] .ambient-red {
+  background: radial-gradient(
+    60% 60% at 50% 40%,
+    rgba(225, 6, 0, 0.09) 0%,
+    rgba(225, 6, 0, 0.03) 40%,
+    transparent 70%
+  );
+}
+
+/* Surfaces: bare/opaque uses (icon circles, placeholders) get a light neutral;
+   true dimming scrims (modals, mobile menu) intentionally stay dark in both themes. */
+[data-theme="light"] .bg-noir,
+[data-theme="light"] .bg-graphite {
+  background-color: #f4f4f5;
+}
+[data-theme="light"] .bg-noir\/40 { background-color: rgb(0 0 0 / 0.04); }
+[data-theme="light"] .bg-noir\/60 { background-color: #f4f4f5; }
+[data-theme="light"] .bg-noir\/70 { background-color: rgba(255, 255, 255, 0.85); }
+[data-theme="light"] .bg-noir\/80 { background-color: rgba(255, 255, 255, 0.8); }
+
+/* Hairline borders */
+[data-theme="light"] .border-white\/5 { border-color: rgb(0 0 0 / 0.05); }
+[data-theme="light"] .border-white\/10 { border-color: rgb(0 0 0 / 0.08); }
+[data-theme="light"] .border-white\/20 { border-color: rgb(0 0 0 / 0.12); }
+
+/* Barely-there surface tints (card differentiation on white) */
+[data-theme="light"] .bg-white\/5 { background-color: rgb(0 0 0 / 0.03); }
+[data-theme="light"] .bg-white\/10 { background-color: rgb(0 0 0 / 0.04); }
+[data-theme="light"] .bg-white\/\[0\.02\] { background-color: rgb(0 0 0 / 0.02); }
+[data-theme="light"] .bg-white\/\[0\.03\] { background-color: rgb(0 0 0 / 0.03); }
+[data-theme="light"] .bg-white\/\[0\.04\] { background-color: rgb(0 0 0 / 0.04); }
+[data-theme="light"] .bg-white\/\[0\.06\] { background-color: rgb(0 0 0 / 0.05); }
+
+/* Muted foreground text (mirrors the opacity ladder used against the dark bg) */
+[data-theme="light"] .text-white\/80 { color: #3f3f46; }
+[data-theme="light"] .text-white\/70 { color: #52525b; }
+[data-theme="light"] .text-white\/60 { color: #52525b; }
+[data-theme="light"] .text-white\/50 { color: #71717a; }
+[data-theme="light"] .text-white\/40 { color: #71717a; }
+[data-theme="light"] .text-white\/30 { color: #a1a1aa; }
+[data-theme="light"] .text-white\/25 { color: #a1a1aa; }
+[data-theme="light"] .text-white\/20 { color: #a1a1aa; }
+[data-theme="light"] .placeholder\:text-white\/30::placeholder { color: #a1a1aa; }
+
+[data-theme="light"] .text-ash {
+  color: #52525b;
+}
+
+/* Opaque foreground text (body copy, labels) flips to near-black. */
+[data-theme="light"] .text-white {
+  color: #18181b;
+}
+
+/* Text on a fixed-color surface (brand-red buttons/badges, or white text over a
+   permanent dark photo scrim) stays white in both themes — higher specificity
+   than the override above so it wins regardless of source order. */
+[data-theme="light"] .text-white.text-white-always {
+  color: #fff;
 }
 
 /* ---------- Arabic / RTL ---------- */

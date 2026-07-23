@@ -7,7 +7,7 @@ export function BoutiquePageHero() {
 
   return (
     <section className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
-      <div className="absolute inset-0 -z-10 bg-noir" />
+      <div className="absolute inset-0 -z-10 bg-[#050505] light:bg-white" />
       <div className="absolute inset-0 -z-10 bg-grid-lines [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_75%)]" />
       <div className="ambient-red absolute -top-1/4 right-0 -z-10 h-[120%] w-[70%]" />
 

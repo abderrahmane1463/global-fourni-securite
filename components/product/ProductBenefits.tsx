@@ -23,7 +23,7 @@ export function ProductBenefits({ product }: { product: Product }) {
             <motion.div
               key={i}
               variants={staggerItem}
-              className="group flex flex-col items-center gap-3 rounded-2xl border border-white/5 p-5 text-center transition-colors duration-300 hover:border-blood/30 hover:bg-white/[0.02]"
+              className="group flex flex-col items-center gap-3 rounded-2xl border border-white/5 p-5 text-center transition-colors duration-300 hover:border-blood/30 hover:bg-white/[0.02] light:hover:bg-black/[0.02]"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-noir transition-all duration-300 group-hover:border-blood/50 group-hover:shadow-glow-sm">
                 <Icon className="h-6 w-6 text-blood" />

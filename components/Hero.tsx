@@ -28,7 +28,7 @@ export function Hero() {
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-16"
     >
       {/* Background layers */}
-      <div className="absolute inset-0 -z-10 bg-noir" />
+      <div className="absolute inset-0 -z-10 bg-[#050505] light:bg-white" />
       <div className="absolute inset-0 -z-10 bg-grid-lines [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_75%)]" />
       <div className="ambient-red absolute -top-1/4 right-0 -z-10 h-[120%] w-[70%]" />
       <div className="absolute left-1/2 top-0 -z-10 h-px w-full max-w-5xl -translate-x-1/2 bg-gradient-to-r from-transparent via-blood/50 to-transparent" />
@@ -99,7 +99,7 @@ export function Hero() {
           >
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-blood px-7 py-3.5 font-heading text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-blood-bright hover:shadow-glow-lg"
+              className="group inline-flex items-center gap-2 rounded-full bg-blood px-7 py-3.5 font-heading text-sm font-semibold text-white text-white-always shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-blood-bright hover:shadow-glow-lg"
             >
               {t.cta.quote}
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -108,7 +108,7 @@ export function Hero() {
               href={`https://wa.me/${COMPANY.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-7 py-3.5 font-heading text-sm font-semibold text-emerald-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-400/60 hover:bg-emerald-500/20"
+              className="group inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-7 py-3.5 font-heading text-sm font-semibold text-emerald-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-400/60 hover:bg-emerald-500/20 light:border-emerald-500/30 light:bg-emerald-50 light:text-emerald-700 light:hover:bg-emerald-100"
             >
               <MessageCircle className="h-4 w-4" />
               {t.cta.whatsapp}
@@ -170,7 +170,7 @@ export function Hero() {
       </div>
 
       {/* bottom fade */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-noir to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#050505] to-transparent light:from-white" />
     </section>
   );
 }

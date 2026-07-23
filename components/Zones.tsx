@@ -25,7 +25,7 @@ export function Zones() {
 
         <div className="mt-16 grid gap-8 lg:grid-cols-[1.3fr_0.7fr]">
           {/* Map */}
-          <Reveal className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-graphite to-noir sm:aspect-[16/10]">
+          <Reveal className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-graphite to-noir light:from-zinc-100 light:to-white sm:aspect-[16/10]">
             <div className="absolute inset-0 bg-grid-lines [background-size:40px_40px] opacity-40" />
             <div className="ambient-red absolute inset-0 opacity-70" />
 
@@ -69,7 +69,7 @@ export function Zones() {
                       : "h-3.5 w-3.5 bg-blood-bright"
                   }`}
                 >
-                  {zone.primary && <MapPin className="h-3 w-3 text-white" />}
+                  {zone.primary && <MapPin className="h-3 w-3 text-white text-white-always" />}
                 </motion.span>
 
                 <span

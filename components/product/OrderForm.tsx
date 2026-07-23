@@ -234,7 +234,7 @@ export function OrderForm({ product }: { product: Product }) {
                   type="button"
                   onClick={() => setField("quantity", Math.max(1, form.quantity - 1))}
                   aria-label={f.decreaseQty}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10 light:hover:bg-black/5"
                 >
                   <Minus className="h-4 w-4" />
                 </button>
@@ -245,7 +245,7 @@ export function OrderForm({ product }: { product: Product }) {
                   type="button"
                   onClick={() => setField("quantity", form.quantity + 1)}
                   aria-label={f.increaseQty}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10 light:hover:bg-black/5"
                 >
                   <Plus className="h-4 w-4" />
                 </button>
@@ -323,7 +323,7 @@ export function OrderForm({ product }: { product: Product }) {
             <button
               type="submit"
               disabled={status !== "idle"}
-              className="group relative mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-blood px-6 py-4 font-heading font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg disabled:opacity-90"
+              className="group relative mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-blood px-6 py-4 font-heading font-semibold text-white text-white-always shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg disabled:opacity-90"
             >
               <AnimatePresence mode="wait">
                 {status === "idle" && (
