@@ -15,7 +15,7 @@ const ThemeContext = createContext<ThemeValue | null>(null);
 const STORAGE_KEY = "gfs-theme";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>("light");
 
   useEffect(() => {
     try {

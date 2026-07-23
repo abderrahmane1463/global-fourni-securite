@@ -74,7 +74,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
@@ -108,7 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="fr"
       dir="ltr"
-      data-theme="dark"
+      data-theme="light"
       suppressHydrationWarning
       className={`${montserrat.variable} ${poppins.variable} ${cairo.variable}`}
     >
