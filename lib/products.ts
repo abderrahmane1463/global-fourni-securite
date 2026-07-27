@@ -57,7 +57,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "okam-pro-4g",
     model: "O-KAM Pro 4G",
-    price: 14900,
+    price: 13500,
     currency: "DA",
     images: [
       "/products/okam-pro-4g/photo-1.jpg",
