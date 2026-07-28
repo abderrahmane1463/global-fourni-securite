@@ -41,7 +41,6 @@ export async function POST(request: Request) {
     !payload.phone ||
     !payload.wilaya ||
     !payload.commune ||
-    !payload.address ||
     !payload.quantity
   ) {
     return NextResponse.json({ ok: false, error: "missing_fields" }, { status: 400 });

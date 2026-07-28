@@ -18,10 +18,8 @@ type FormState = {
   phone: string;
   wilaya: string; // wilaya code, e.g. "10"
   commune: string;
-  address: string;
   quantity: number;
   deliveryType: DeliveryType;
-  notes: string;
 };
 
 type FieldErrors = Partial<Record<keyof FormState, string>>;
@@ -31,10 +29,8 @@ const INITIAL: FormState = {
   phone: "",
   wilaya: "",
   commune: "",
-  address: "",
   quantity: 1,
   deliveryType: "bureau",
-  notes: "",
 };
 
 function validate(form: FormState, errors: Content["order"]["form"]["errors"]): FieldErrors {
@@ -47,7 +43,6 @@ function validate(form: FormState, errors: Content["order"]["form"]["errors"]): 
   if (phoneDigits.length < 8 || phoneDigits.length > 13) out.phone = errors.phone;
   if (!form.wilaya) out.wilaya = errors.wilaya;
   if (form.commune.trim().length < 1) out.commune = errors.commune;
-  if (form.address.trim().length < 1) out.address = errors.address;
   if (form.quantity < 1) out.quantity = errors.quantity;
   return out;
 }
@@ -75,8 +70,6 @@ function buildOrderPayload(product: Product, form: FormState, lang: Lang) {
     phone: form.phone,
     wilaya: wilaya ? wilayaLabel(wilaya, "fr") : form.wilaya,
     commune: form.commune,
-    address: form.address,
-    notes: form.notes,
     language: lang,
     ...getAttribution(),
   };
@@ -105,7 +98,6 @@ export function OrderForm({ product }: { product: Product }) {
       phone: true,
       wilaya: true,
       commune: true,
-      address: true,
       quantity: true,
     });
     if (hasErrors) return;
@@ -228,16 +220,6 @@ export function OrderForm({ product }: { product: Product }) {
               />
             </div>
 
-            <Field
-              label={f.address}
-              required
-              value={form.address}
-              error={touched.address ? errors.address : undefined}
-              onChange={(v) => setField("address", v)}
-              onBlur={() => markTouched("address")}
-              placeholder={f.addressPh}
-            />
-
             <div className="flex flex-col gap-2">
               <label className="font-heading text-sm font-medium text-white">{f.quantity}</label>
               <div className="flex w-fit items-center gap-1 rounded-xl border border-white/10 bg-noir/60 p-1.5">
@@ -293,20 +275,6 @@ export function OrderForm({ product }: { product: Product }) {
                 })}
               </div>
               <span className="text-xs text-white/40">{f.deliveryNote}</span>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label htmlFor="notes" className="font-heading text-sm font-medium text-white">
-                {f.notes}
-              </label>
-              <textarea
-                id="notes"
-                rows={3}
-                value={form.notes}
-                onChange={(e) => setField("notes", e.target.value)}
-                placeholder={f.notesPh}
-                className="resize-none rounded-xl border border-white/10 bg-noir/60 px-4 py-3 text-white placeholder:text-white/30 outline-none transition-colors focus:border-blood/60 focus:shadow-glow-sm"
-              />
             </div>
 
             <div className="flex flex-col gap-2 rounded-xl border border-white/10 bg-noir/40 px-5 py-4">
