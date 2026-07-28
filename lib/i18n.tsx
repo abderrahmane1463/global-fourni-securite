@@ -16,7 +16,7 @@ const I18nContext = createContext<I18nValue | null>(null);
 const STORAGE_KEY = "gfs-lang";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("fr");
+  const [lang, setLangState] = useState<Lang>("ar");
 
   // Restore saved preference on mount
   useEffect(() => {

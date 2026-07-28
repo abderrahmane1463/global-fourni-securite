@@ -106,18 +106,18 @@ const jsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="fr"
-      dir="ltr"
+      lang="ar"
+      dir="rtl"
       data-theme="light"
       suppressHydrationWarning
       className={`${montserrat.variable} ${poppins.variable} ${cairo.variable}`}
     >
       <body>
-        {/* Applies a saved theme before first paint, avoiding a dark->light flash. */}
+        {/* Applies a saved theme/language before first paint, avoiding a flash. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var t=localStorage.getItem('gfs-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}",
+              "try{var t=localStorage.getItem('gfs-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;var l=localStorage.getItem('gfs-lang');if(l==='fr'||l==='ar'){document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';}}catch(e){}",
           }}
         />
         <script
