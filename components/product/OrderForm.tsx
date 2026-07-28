@@ -39,10 +39,14 @@ const INITIAL: FormState = {
 
 function validate(form: FormState, errors: Content["order"]["form"]["errors"]): FieldErrors {
   const out: FieldErrors = {};
-  if (form.name.trim().length < 3) out.name = errors.name;
-  if (!/^0\d{8,9}$/.test(form.phone.trim())) out.phone = errors.phone;
+  if (form.name.trim().length < 1) out.name = errors.name;
+  // Accepts any real-world format (spaces, dashes, +213, 00213…) — just
+  // checks there are enough digits, since strict formatting was silently
+  // blocking real customers.
+  const phoneDigits = form.phone.replace(/\D/g, "");
+  if (phoneDigits.length < 8 || phoneDigits.length > 13) out.phone = errors.phone;
   if (!form.wilaya) out.wilaya = errors.wilaya;
-  if (form.commune.trim().length < 2) out.commune = errors.commune;
+  if (form.commune.trim().length < 1) out.commune = errors.commune;
   if (form.address.trim().length < 1) out.address = errors.address;
   if (form.quantity < 1) out.quantity = errors.quantity;
   return out;
