@@ -33,21 +33,25 @@ export function ProductPage({ slug }: { slug: string }) {
 
   if (!product) notFound();
 
-  // On phone, ad traffic sees the photos and the order form right after the
-  // hero — everything else still shows, just pushed below the form. Desktop
+  // On phone, ad traffic sees the order form right after the hero (its own
+  // image carousel + CTA already cover the "photos" part) — everything else
+  // keeps its normal relative order, just pushed below the form. Desktop
   // keeps the original full order (md:order-N matches the natural sequence).
   return (
     <div className="flex flex-col">
       <div className="order-1">
         <ProductHero product={product} />
       </div>
-      <div className="order-4 md:order-2">
+      <div className="order-2 md:order-10">
+        <OrderForm product={product} />
+      </div>
+      <div className="order-3 md:order-2">
         <ProductBenefits product={product} />
       </div>
-      <div className="order-5 md:order-3">
+      <div className="order-4 md:order-3">
         <ProductFeatures product={product} />
       </div>
-      <div className="order-2 md:order-4">
+      <div className="order-5 md:order-4">
         <ProductGallery product={product} />
       </div>
       <div className="order-6 md:order-5">
@@ -64,9 +68,6 @@ export function ProductPage({ slug }: { slug: string }) {
       </div>
       <div className="order-10 md:order-9">
         <ProductFinalCta product={product} />
-      </div>
-      <div className="order-3 md:order-10">
-        <OrderForm product={product} />
       </div>
     </div>
   );
