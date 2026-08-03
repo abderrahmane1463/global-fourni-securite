@@ -33,18 +33,41 @@ export function ProductPage({ slug }: { slug: string }) {
 
   if (!product) notFound();
 
+  // On phone, ad traffic should go straight from the photos to the order
+  // form — everything else only shows from the md breakpoint up. Desktop
+  // keeps the original full order (md:order-N matches the natural sequence).
   return (
-    <>
-      <ProductHero product={product} />
-      <ProductBenefits product={product} />
-      <ProductFeatures product={product} />
-      <ProductGallery product={product} />
-      <ProductComparison product={product} />
-      <ProductHowItWorks product={product} />
-      <ProductSpecs product={product} />
-      <ProductFaq product={product} />
-      <ProductFinalCta product={product} />
-      <OrderForm product={product} />
-    </>
+    <div className="flex flex-col">
+      <div className="order-1">
+        <ProductHero product={product} />
+      </div>
+      <div className="hidden md:order-2 md:block">
+        <ProductBenefits product={product} />
+      </div>
+      <div className="hidden md:order-3 md:block">
+        <ProductFeatures product={product} />
+      </div>
+      <div className="order-2 md:order-4">
+        <ProductGallery product={product} />
+      </div>
+      <div className="hidden md:order-5 md:block">
+        <ProductComparison product={product} />
+      </div>
+      <div className="hidden md:order-6 md:block">
+        <ProductHowItWorks product={product} />
+      </div>
+      <div className="hidden md:order-7 md:block">
+        <ProductSpecs product={product} />
+      </div>
+      <div className="hidden md:order-8 md:block">
+        <ProductFaq product={product} />
+      </div>
+      <div className="hidden md:order-9 md:block">
+        <ProductFinalCta product={product} />
+      </div>
+      <div className="order-3 md:order-10">
+        <OrderForm product={product} />
+      </div>
+    </div>
   );
 }
