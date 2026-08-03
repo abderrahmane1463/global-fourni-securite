@@ -177,7 +177,7 @@ export function ProductHero({ product }: { product: Product }) {
             </a>
             <a
               href="#specifications"
-              className="glass hidden items-center gap-2 rounded-full px-7 py-4 font-heading text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-blood/50 md:inline-flex"
+              className="glass inline-flex items-center gap-2 rounded-full px-7 py-4 font-heading text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-blood/50"
             >
               {t.product.seeSpecs}
             </a>

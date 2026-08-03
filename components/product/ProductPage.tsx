@@ -33,36 +33,36 @@ export function ProductPage({ slug }: { slug: string }) {
 
   if (!product) notFound();
 
-  // On phone, ad traffic should go straight from the photos to the order
-  // form — everything else only shows from the md breakpoint up. Desktop
+  // On phone, ad traffic sees the photos and the order form right after the
+  // hero — everything else still shows, just pushed below the form. Desktop
   // keeps the original full order (md:order-N matches the natural sequence).
   return (
     <div className="flex flex-col">
       <div className="order-1">
         <ProductHero product={product} />
       </div>
-      <div className="hidden md:order-2 md:block">
+      <div className="order-4 md:order-2">
         <ProductBenefits product={product} />
       </div>
-      <div className="hidden md:order-3 md:block">
+      <div className="order-5 md:order-3">
         <ProductFeatures product={product} />
       </div>
       <div className="order-2 md:order-4">
         <ProductGallery product={product} />
       </div>
-      <div className="hidden md:order-5 md:block">
+      <div className="order-6 md:order-5">
         <ProductComparison product={product} />
       </div>
-      <div className="hidden md:order-6 md:block">
+      <div className="order-7 md:order-6">
         <ProductHowItWorks product={product} />
       </div>
-      <div className="hidden md:order-7 md:block">
+      <div className="order-8 md:order-7">
         <ProductSpecs product={product} />
       </div>
-      <div className="hidden md:order-8 md:block">
+      <div className="order-9 md:order-8">
         <ProductFaq product={product} />
       </div>
-      <div className="hidden md:order-9 md:block">
+      <div className="order-10 md:order-9">
         <ProductFinalCta product={product} />
       </div>
       <div className="order-3 md:order-10">
