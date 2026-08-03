@@ -103,13 +103,31 @@ export function OrderForm({ product }: { product: Product }) {
     if (hasErrors) return;
 
     setStatus("sending");
+
+    const submitPromise = fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(buildOrderPayload(product, form, lang)),
+    });
+
+    // Google Sheets (via Apps Script) can take several seconds to respond.
+    // Don't make the customer sit through that — wait at most ~1s for a
+    // real answer; if it's just running slow, proceed optimistically and
+    // let it finish in the background (failures are still logged).
+    const timeout = new Promise<"timeout">((resolve) => setTimeout(() => resolve("timeout"), 1000));
+
     try {
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(buildOrderPayload(product, form, lang)),
-      });
-      if (!res.ok) throw new Error("order_failed");
+      const result = await Promise.race([submitPromise, timeout]);
+
+      if (result === "timeout") {
+        submitPromise
+          .then((res) => {
+            if (!res.ok) console.error("order submit failed (slow response)", res.status);
+          })
+          .catch((err) => console.error("order submit failed (slow response)", err));
+      } else if (!result.ok) {
+        throw new Error("order_failed");
+      }
 
       trackLead({
         name: product.content.fr.name,
